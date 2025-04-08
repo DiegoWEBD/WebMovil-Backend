@@ -38,6 +38,14 @@ app.use(
 	})
 )
 
+app.use(
+	'/store',
+	createProxyMiddleware({
+		target: 'http://store-service:3004',
+		changeOrigin: true,
+	})
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )
