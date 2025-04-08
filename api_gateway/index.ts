@@ -22,6 +22,15 @@ app.use(
 )
 
 app.use(
+	'/shipping',
+	createProxyMiddleware({
+		target: 'http://shipping-service:3002',
+		changeOrigin: true,
+		ws: true,
+	})
+)
+
+app.use(
 	'/stock',
 	createProxyMiddleware({
 		target: 'http://stock-service:3003',
