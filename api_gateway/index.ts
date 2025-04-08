@@ -21,6 +21,14 @@ app.use(
 	})
 )
 
+app.use(
+	'/stock',
+	createProxyMiddleware({
+		target: 'http://stock-service:3003',
+		changeOrigin: true,
+	})
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )
