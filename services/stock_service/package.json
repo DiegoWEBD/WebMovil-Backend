@@ -1,0 +1,23 @@
+{
+	"name": "stock_service",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"dev": "nodemon src/api/index.ts"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.1",
+		"nodemon": "^3.1.9",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^5.1.0",
+		"mongoose": "^8.13.2"
+	}
+}
