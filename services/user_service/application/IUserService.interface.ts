@@ -1,7 +1,7 @@
 import User from '../domain/User'
 
 export default interface IUserService {
-	getUserByEmail(email: string): Promise<User | null>
+	getUserByEmail(email: string): Promise<User>
 	registerUser(
 		email: string,
 		fullName: string,

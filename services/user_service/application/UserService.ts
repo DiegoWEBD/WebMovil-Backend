@@ -17,7 +17,7 @@ export default class UserService implements IUserService {
 		this._registerUser = new RegisterUser(this.userRepository)
 	}
 
-	async getUserByEmail(email: string): Promise<User | null> {
+	async getUserByEmail(email: string): Promise<User> {
 		return this._getUserByEmail.execute(email)
 	}
 

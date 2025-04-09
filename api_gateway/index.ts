@@ -46,6 +46,14 @@ app.use(
 	})
 )
 
+app.use(
+	'/owners',
+	createProxyMiddleware({
+		target: 'http://owner-service:3005',
+		changeOrigin: true,
+	})
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )

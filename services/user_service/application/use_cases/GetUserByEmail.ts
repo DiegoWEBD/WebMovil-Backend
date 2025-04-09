@@ -8,7 +8,7 @@ export default class GetUserByEmail {
 		this.userRepository = userRepository
 	}
 
-	async execute(email: string): Promise<User | null> {
+	async execute(email: string): Promise<User> {
 		const user = await this.userRepository.getUserByEmail(email)
 
 		if (!user) {
