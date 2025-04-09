@@ -11,6 +11,7 @@ const ownerController = new OwnerController(ownerService)
 
 const router = Router()
 
+router.get('/', ownerController.getOwners)
 router.get('/:email', ownerController.getOwnerByEmail)
 router.post('/', ownerController.registerOwner)
 

@@ -9,6 +9,14 @@ export default class UserController {
 
 		this.getOwnerByEmail = this.getOwnerByEmail.bind(this)
 		this.registerOwner = this.registerOwner.bind(this)
+		this.getOwners = this.getOwners.bind(this)
+	}
+
+	getOwners(_: Request, res: Response): void {
+		this.ownerService
+			.getOwners()
+			.then(owners => res.status(200).json(owners))
+			.catch(err => res.status(400).json({ error: err.message }))
 	}
 
 	getOwnerByEmail(req: Request, res: Response): void {
@@ -16,7 +24,7 @@ export default class UserController {
 
 		this.ownerService
 			.getOwnerByEmail(email)
-			.then(user => res.status(200).json({ ...user }))
+			.then(owner => res.status(200).json({ ...owner }))
 			.catch(err => res.status(400).json({ error: err.message }))
 	}
 
@@ -25,7 +33,7 @@ export default class UserController {
 
 		this.ownerService
 			.registerOwner(email, full_name, profile_picture)
-			.then(user => res.status(201).json(user))
+			.then(owner => res.status(201).json(owner))
 			.catch(err => {
 				res.status(400).json({ error: err.message })
 			})

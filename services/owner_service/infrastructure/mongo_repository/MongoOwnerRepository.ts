@@ -20,6 +20,11 @@ export default class MongoOwnerRepository implements OwnerRepository {
 			)
 	}
 
+	async getAll(): Promise<Owner[]> {
+		const owners = await OwnerModel.find()
+		return owners.map(owner => new IOwnerAdapter(owner))
+	}
+
 	async getByEmail(email: string): Promise<Owner | null> {
 		const owner = await OwnerModel.findOne({ email })
 		return owner ? new IOwnerAdapter(owner) : null

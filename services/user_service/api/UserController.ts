@@ -21,10 +21,10 @@ export default class UserController {
 	}
 
 	registerUser(req: Request, res: Response): void {
-		const { email, full_name, profile_picture } = req.body
+		const { email, user_type } = req.body
 
 		this.userService
-			.registerUser(email, full_name, profile_picture)
+			.registerUser(email, user_type)
 			.then(user => res.status(201).json(user))
 			.catch(err => {
 				res.status(400).json({ error: err.message })

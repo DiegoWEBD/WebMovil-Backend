@@ -27,15 +27,14 @@ export default class RegisterUser {
 			throw new Error('El correo ingresado ya se encuentra registrado.')
 		}
 
-		await axios.post('http://user-service:3001/', {
+		await axios.post('http://user-service:3001', {
 			email,
-			full_name: fullName,
-			profile_picture: profilePicture,
+			user_type: 'owner',
 		})
 
-		const user = new Owner(email)
-		await this.ownerRepository.add(user)
+		const owner = new Owner(email, fullName, profilePicture)
+		await this.ownerRepository.add(owner)
 
-		return user
+		return owner
 	}
 }
