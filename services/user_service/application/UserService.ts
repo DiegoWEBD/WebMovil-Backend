@@ -21,7 +21,19 @@ export default class UserService implements IUserService {
 		return this._getUserByEmail.execute(email)
 	}
 
-	async registerUser(email: string, userType: string): Promise<User> {
-		return this._registerUser.execute(email, userType)
+	async registerUser(
+		email: string,
+		fullName: string,
+		phone: string,
+		profilePicture: string,
+		userType: string
+	): Promise<User> {
+		return this._registerUser.execute(
+			email,
+			fullName,
+			phone,
+			profilePicture,
+			userType
+		)
 	}
 }
