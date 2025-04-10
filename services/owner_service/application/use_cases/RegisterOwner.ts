@@ -12,6 +12,7 @@ export default class RegisterUser {
 
 	async execute(
 		email: string,
+		phone: string,
 		fullName: string,
 		profilePicture: string
 	): Promise<Owner> {
@@ -29,10 +30,13 @@ export default class RegisterUser {
 
 		await axios.post('http://user-service:3001', {
 			email,
+			phone,
+			full_name: fullName,
+			profile_picture: profilePicture,
 			user_type: 'owner',
 		})
 
-		const owner = new Owner(email, fullName, profilePicture)
+		const owner = new Owner(email)
 		await this.ownerRepository.add(owner)
 
 		return owner

@@ -29,10 +29,10 @@ export default class UserController {
 	}
 
 	registerOwner(req: Request, res: Response): void {
-		const { email, full_name, profile_picture } = req.body
+		const { email, phone, full_name, profile_picture } = req.body
 
 		this.ownerService
-			.registerOwner(email, full_name, profile_picture)
+			.registerOwner(email, phone, full_name, profile_picture)
 			.then(owner => res.status(201).json(owner))
 			.catch(err => {
 				res.status(400).json({ error: err.message })

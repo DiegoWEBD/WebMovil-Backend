@@ -26,9 +26,10 @@ export default class OwnerService implements IOwnerService {
 
 	async registerOwner(
 		email: string,
+		phone: string,
 		fullName: string,
 		profilePicture: string
 	): Promise<Owner> {
-		return this._registerOwner.execute(email, fullName, profilePicture)
+		return this._registerOwner.execute(email, phone, fullName, profilePicture)
 	}
 }

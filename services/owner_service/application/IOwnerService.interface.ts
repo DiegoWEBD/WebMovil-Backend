@@ -5,6 +5,7 @@ export default interface IOwnerService {
 	getOwnerByEmail(email: string): Promise<Owner>
 	registerOwner(
 		email: string,
+		phone: string,
 		fullName: string,
 		profilePicture: string
 	): Promise<Owner>
