@@ -39,7 +39,7 @@ app.use(
 )
 
 app.use(
-	'/store',
+	'/stores',
 	createProxyMiddleware({
 		target: 'http://store-service:3004',
 		changeOrigin: true,
