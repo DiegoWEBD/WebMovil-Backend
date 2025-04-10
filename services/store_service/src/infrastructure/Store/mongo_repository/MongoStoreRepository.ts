@@ -23,7 +23,7 @@ export default class MongoStoreRepository implements StoreRepository {
 	async add(store: Store): Promise<void> {
 		const newStore = new StoreModelAdapter(store)
 		await newStore.save()
-		store.setId(newStore.id)
+		store.setId(newStore._id.toString())
 	}
 
 	async getAll(): Promise<Store[]> {
@@ -32,7 +32,7 @@ export default class MongoStoreRepository implements StoreRepository {
 	}
 
 	async getById(id: string): Promise<Store | null> {
-		const store = await StoreModel.findOne({ id })
+		const store = await StoreModel.findOne({ _id: id })
 		return store ? new IStoreAdapter(store) : null
 	}
 
