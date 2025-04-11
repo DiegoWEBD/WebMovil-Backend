@@ -54,6 +54,14 @@ app.use(
 	})
 )
 
+app.use(
+	'/auth',
+	createProxyMiddleware({
+		target: 'http://auth-service:3006',
+		changeOrigin: true,
+	})
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )
