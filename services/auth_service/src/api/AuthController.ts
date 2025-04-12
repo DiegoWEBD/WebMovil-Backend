@@ -39,10 +39,7 @@ export default class AuthController {
 
 		this.authService
 			.register(googleAccessToken, phone, full_name, profile_picture, user_type)
-			.then(email => {
-				console.log('User registered:', email)
-				res.status(201).json(email)
-			})
+			.then(email => res.status(201).json(email))
 			.catch(error => res.status(401).json({ error: error.message }))
 	}
 }

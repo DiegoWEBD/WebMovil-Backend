@@ -17,6 +17,6 @@ export default class Validate {
 
 		// En este punto, ya se ha validado la existencia del usuario en el sistema
 		const existingUser = existingUserResponse.data
-		return { email: existingUser.email, user_type: existingUser.user_type }
+		return { user_email: existingUser.email, user_type: existingUser.user_type }
 	}
 }

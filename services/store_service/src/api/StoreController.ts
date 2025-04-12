@@ -9,6 +9,7 @@ export default class StoreController {
 
 		this.getAllStores = this.getAllStores.bind(this)
 		this.registerStore = this.registerStore.bind(this)
+		this.getStoresByOwnerEmail = this.getStoresByOwnerEmail.bind(this)
 	}
 
 	getAllStores(_: Request, res: Response): void {
@@ -23,6 +24,15 @@ export default class StoreController {
 		this.storeService
 			.registerStore(name, description, direction, phone, owner_email)
 			.then(store => res.status(201).json({ store }))
+			.catch(err => res.status(500).json({ error: err.message }))
+	}
+
+	getStoresByOwnerEmail(req: Request, res: Response): void {
+		console.log(req.body)
+		const ownerEmail = req.params.owner_email
+		this.storeService
+			.getStoresByOwnerEmail(ownerEmail)
+			.then(stores => res.status(200).json({ stores }))
 			.catch(err => res.status(500).json({ error: err.message }))
 	}
 }

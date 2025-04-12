@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { authMiddleware } from './middlewares/auth_middleware'
 
 const PORT = 3000
 const app = express()
@@ -23,6 +24,7 @@ app.use(
 
 app.use(
 	'/shipping',
+	authMiddleware,
 	createProxyMiddleware({
 		target: 'http://shipping-service:3002',
 		changeOrigin: true,
@@ -32,6 +34,7 @@ app.use(
 
 app.use(
 	'/stock',
+	authMiddleware,
 	createProxyMiddleware({
 		target: 'http://stock-service:3003',
 		changeOrigin: true,
@@ -40,6 +43,7 @@ app.use(
 
 app.use(
 	'/stores',
+	authMiddleware,
 	createProxyMiddleware({
 		target: 'http://store-service:3004',
 		changeOrigin: true,
