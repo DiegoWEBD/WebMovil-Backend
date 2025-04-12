@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express'
 import axios from 'axios'
+import { NextFunction, Response } from 'express'
 import CustomExpressRequest from './types/CustomExpressRequest'
 
 export const authMiddleware = async (
