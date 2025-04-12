@@ -28,7 +28,6 @@ export default class StoreController {
 	}
 
 	getStoresByOwnerEmail(req: Request, res: Response): void {
-		console.log(req.body)
 		const ownerEmail = req.params.owner_email
 		this.storeService
 			.getStoresByOwnerEmail(ownerEmail)

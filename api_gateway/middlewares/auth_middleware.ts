@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { NextFunction, Response } from 'express'
-import CustomExpressRequest from './types/CustomExpressRequest'
+import { NextFunction, Request, Response } from 'express'
 
 export const authMiddleware = async (
-	req: CustomExpressRequest,
+	req: Request,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
@@ -23,7 +22,9 @@ export const authMiddleware = async (
 			},
 		})
 
-		// const { user_email, user_type } = data
+		const { user_email, user_type } = data
+		req.headers['validated-user-email'] = user_email
+		req.headers['validated-user-type'] = user_type
 		next()
 	} catch (error) {
 		res
