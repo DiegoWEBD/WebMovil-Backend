@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import path from 'path'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { authMiddleware } from './middlewares/auth_middleware'
 
@@ -13,6 +14,11 @@ app.get('/', (_, res) => {
 		message: 'API de gestión de ventas vecinal.',
 	})
 })
+
+app.use(
+	'/stores_portraits',
+	express.static(path.join(__dirname, './public/stores_portraits'))
+)
 
 app.use(
 	'/users',

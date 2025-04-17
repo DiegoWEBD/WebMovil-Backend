@@ -7,15 +7,33 @@ export default class StoreController {
 	constructor(storeService: IStoreService) {
 		this.storeService = storeService
 
-		this.getAllStores = this.getAllStores.bind(this)
+		this.getStores = this.getStores.bind(this)
 		this.registerStore = this.registerStore.bind(this)
 		this.getStoresByOwnerEmail = this.getStoresByOwnerEmail.bind(this)
 	}
 
-	getAllStores(_: Request, res: Response): void {
+	async getStores(req: Request, res: Response): Promise<void> {
+		let page = parseInt(req.query.page as string)
+		let limit = parseInt(req.query.limit as string)
+
+		page = isNaN(page) ? 1 : page
+		limit = isNaN(limit) ? 10 : limit
+
+		const totalStores = await this.storeService.countStores()
+
 		this.storeService
-			.getStores()
-			.then(stores => res.status(200).json({ stores }))
+			.getStores(page, limit)
+			.then(stores =>
+				res.status(200).json({
+					meta: {
+						total_stores: totalStores,
+						current_page: page,
+						limit: limit,
+						total_pages: Math.ceil(totalStores / limit),
+					},
+					stores,
+				})
+			)
 			.catch(err => res.status(500).json({ error: err.message }))
 	}
 

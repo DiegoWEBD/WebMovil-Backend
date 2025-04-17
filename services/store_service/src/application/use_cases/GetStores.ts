@@ -8,7 +8,11 @@ export default class GetStores {
 		this.storeRepository = storeRepository
 	}
 
-	async execute(): Promise<Store[]> {
-		return await this.storeRepository.getAll()
+	async execute(
+		page: number | undefined = 1,
+		limit: number | undefined = 10
+	): Promise<Store[]> {
+		const skip = (page - 1) * limit
+		return await this.storeRepository.get(skip, limit)
 	}
 }

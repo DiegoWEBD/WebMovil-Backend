@@ -1,7 +1,11 @@
 import Store from '../domain/Store/Store'
 
 export default interface IStoreService {
-	getStores(): Promise<Store[] | null>
+	countStores(): Promise<number>
+	getStores(
+		page: number | undefined,
+		limit: number | undefined
+	): Promise<Store[] | null>
 	getStoreById(id: string): Promise<Store>
 	getStoresByOwnerEmail(email: string): Promise<Store[]>
 	findStoresByName(name: string): Promise<Store[]>

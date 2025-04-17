@@ -20,14 +20,18 @@ export default class MongoStoreRepository implements StoreRepository {
 			)
 	}
 
+	async count(): Promise<number> {
+		return await StoreModel.countDocuments()
+	}
+
 	async add(store: Store): Promise<void> {
 		const newStore = new StoreModelAdapter(store)
 		await newStore.save()
 		store.setId(newStore._id.toString())
 	}
 
-	async getAll(): Promise<Store[]> {
-		const stores = await StoreModel.find()
+	async get(skip: number, limit: number): Promise<Store[]> {
+		const stores = await StoreModel.find().skip(skip).limit(limit)
 		return stores.map(store => new IStoreAdapter(store))
 	}
 

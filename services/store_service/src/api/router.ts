@@ -8,7 +8,7 @@ const storeService = new StoreService(storeRepository)
 const storeController = new StoreController(storeService)
 const router = Router()
 
-router.get('/', storeController.getAllStores)
+router.get('/', storeController.getStores)
 router.get('/:owner_email', storeController.getStoresByOwnerEmail)
 router.post('/', storeController.registerStore)
 
