@@ -10,6 +10,7 @@ export default class StoreController {
 		this.getStores = this.getStores.bind(this)
 		this.registerStore = this.registerStore.bind(this)
 		this.getStoresByOwnerEmail = this.getStoresByOwnerEmail.bind(this)
+		this.findStoresByName = this.findStoresByName.bind(this)
 	}
 
 	async getStores(req: Request, res: Response): Promise<void> {
@@ -49,6 +50,14 @@ export default class StoreController {
 		const ownerEmail = req.params.owner_email
 		this.storeService
 			.getStoresByOwnerEmail(ownerEmail)
+			.then(stores => res.status(200).json({ stores }))
+			.catch(err => res.status(500).json({ error: err.message }))
+	}
+
+	findStoresByName(req: Request, res: Response): void {
+		const storeName = req.query.name as string
+		this.storeService
+			.findStoresByName(storeName)
 			.then(stores => res.status(200).json({ stores }))
 			.catch(err => res.status(500).json({ error: err.message }))
 	}
