@@ -16,14 +16,16 @@ export default class StoreController {
 	async getStores(req: Request, res: Response): Promise<void> {
 		let page = parseInt(req.query.page as string)
 		let limit = parseInt(req.query.limit as string)
+		let name = req.query.name as string
 
 		page = isNaN(page) ? 1 : page
 		limit = isNaN(limit) ? 10 : limit
+		name = name || ''
 
-		const totalStores = await this.storeService.countStores()
+		const totalStores = await this.storeService.countStores(name)
 
 		this.storeService
-			.getStores(page, limit)
+			.getStores(name, page, limit)
 			.then(stores =>
 				res.status(200).json({
 					meta: {

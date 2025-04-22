@@ -25,15 +25,16 @@ export default class StoreService implements IStoreService {
 		this._registerStore = new RegisterStore(storeRepository)
 	}
 
-	countStores(): Promise<number> {
-		return this._countStores.execute()
+	countStores(name: string): Promise<number> {
+		return this._countStores.execute(name)
 	}
 
 	getStores(
+		name: string,
 		page: number | undefined = 1,
 		limit: number | undefined
 	): Promise<Store[] | null> {
-		return this._getStores.execute(page, limit)
+		return this._getStores.execute(name, page, limit)
 	}
 	getStoreById(id: string): Promise<Store> {
 		return this._getStoreById.execute(id)

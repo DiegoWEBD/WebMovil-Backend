@@ -7,7 +7,7 @@ export default class CountStores {
 		this.storeRepository = storeRepository
 	}
 
-	async execute(): Promise<number> {
-		return await this.storeRepository.count()
+	async execute(name: string): Promise<number> {
+		return await this.storeRepository.count(name)
 	}
 }

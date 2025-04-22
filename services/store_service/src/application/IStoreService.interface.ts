@@ -1,8 +1,9 @@
 import Store from '../domain/Store/Store'
 
 export default interface IStoreService {
-	countStores(): Promise<number>
+	countStores(name: string): Promise<number>
 	getStores(
+		name: string,
 		page: number | undefined,
 		limit: number | undefined
 	): Promise<Store[] | null>

@@ -20,8 +20,9 @@ export default class MongoStoreRepository implements StoreRepository {
 			)
 	}
 
-	async count(): Promise<number> {
-		return await StoreModel.countDocuments()
+	async count(name: string): Promise<number> {
+		const regex = new RegExp(name, 'i')
+		return await StoreModel.find({ name: { $regex: regex } }).countDocuments()
 	}
 
 	async add(store: Store): Promise<void> {
@@ -30,8 +31,11 @@ export default class MongoStoreRepository implements StoreRepository {
 		store.setId(newStore._id.toString())
 	}
 
-	async get(skip: number, limit: number): Promise<Store[]> {
-		const stores = await StoreModel.find().skip(skip).limit(limit)
+	async get(name: string, skip: number, limit: number): Promise<Store[]> {
+		const regex = new RegExp(name, 'i')
+		const stores = await StoreModel.find({ name: { $regex: regex } })
+			.skip(skip)
+			.limit(limit)
 		return stores.map(store => new IStoreAdapter(store))
 	}
 
