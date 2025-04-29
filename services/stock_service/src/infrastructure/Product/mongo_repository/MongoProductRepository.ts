@@ -10,7 +10,9 @@ export default class MongoProductRepository implements ProductRepository {
 			.connect(
 				'mongodb://admin:secret@mongodb:27017/stock_service_db?authSource=admin'
 			)
-			.then(() => console.log('Base de datos de StockService conectada'))
+			.then(async () => {
+				console.log('Conectado a la base de datos de StockService')
+			})
 			.catch(err =>
 				console.error(
 					'Error al conectar a la base de datos de StockService:',
@@ -19,8 +21,9 @@ export default class MongoProductRepository implements ProductRepository {
 			)
 	}
 
-	async getAll(): Promise<Product[]> {
-		const products = await ProductModel.find()
+	async getAll(storeId: string | undefined): Promise<Product[]> {
+		const query = storeId ? { store_id: storeId } : {}
+		const products = await ProductModel.find(query)
 		return products.map(product => new IProductAdapter(product))
 	}
 	async add(product: Product): Promise<void> {

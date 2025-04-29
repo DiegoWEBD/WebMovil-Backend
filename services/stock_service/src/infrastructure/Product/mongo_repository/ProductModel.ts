@@ -5,7 +5,8 @@ export interface IProduct {
 	name: string
 	description: string
 	price: number
-	store_id: number
+	store_id: string
+	picture: string
 }
 
 const ProductSchema = new Schema<IProduct>({
@@ -13,7 +14,8 @@ const ProductSchema = new Schema<IProduct>({
 	name: { type: String, required: true },
 	description: { type: String, required: true },
 	price: { type: Number, required: true },
-	store_id: { type: Number, required: true },
+	store_id: { type: String, required: true },
+	picture: { type: String, required: false, default: '' },
 })
 
 const ProductModel = model<IProduct>('Product', ProductSchema)

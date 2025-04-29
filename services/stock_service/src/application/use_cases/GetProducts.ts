@@ -8,7 +8,7 @@ export default class GetProducts {
 		this.productRepository = productRepository
 	}
 
-	async execute(): Promise<Product[]> {
-		return await this.productRepository.getAll()
+	async execute(storeId: string | undefined): Promise<Product[]> {
+		return await this.productRepository.getAll(storeId)
 	}
 }
