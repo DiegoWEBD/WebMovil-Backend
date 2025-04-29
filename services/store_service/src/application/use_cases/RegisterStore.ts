@@ -1,6 +1,8 @@
 import axios from 'axios'
 import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
+import { ScheduleData } from '../IStoreService.interface'
+import Schedule from '../../domain/Schedule/Schedule'
 
 export default class RegisterStore {
 	private storeRepository: StoreRepository
@@ -12,9 +14,13 @@ export default class RegisterStore {
 	async execute(
 		name: string,
 		description: string,
+		about: string,
 		direction: string,
 		phone: string,
-		ownerEmail: string
+		email: string,
+		schedules: ScheduleData[],
+		ownerEmail: string,
+		imageName: string | undefined
 	): Promise<Store> {
 		const similarStores = await this.storeRepository.findByName(name)
 
@@ -40,7 +46,19 @@ export default class RegisterStore {
 			)
 		}
 
-		const store = new Store(name, description, direction, phone, [ownerEmail])
+		const store = new Store(
+			name,
+			description,
+			about,
+			direction,
+			phone,
+			email,
+			schedules.map(
+				schedule => new Schedule(schedule.day, schedule.open, schedule.close)
+			),
+			[ownerEmail],
+			imageName
+		)
 		await this.storeRepository.add(store) // El id se agrega automáticamente en el repositorio
 		return store
 	}

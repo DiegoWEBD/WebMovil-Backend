@@ -1,17 +1,27 @@
+import Schedule from '../Schedule/Schedule'
+
 export default class Store {
 	private id: string | undefined
 	private name: string
 	private description: string
+	private about: string
 	private direction: string
 	private phone: string
+	private email: string
+	private schedules: Schedule[]
 	private owners_emails: string[]
+	private image_name: string | undefined
 
 	constructor(
 		name: string,
 		description: string,
+		about: string,
 		direction: string,
 		phone: string,
+		email: string,
+		schedules: Schedule[],
 		ownersEmails: string[],
+		imageName: string | undefined,
 		id: string | undefined = undefined
 	) {
 		this.id = id
@@ -20,33 +30,52 @@ export default class Store {
 		this.direction = direction
 		this.phone = phone
 		this.owners_emails = ownersEmails
+		this.schedules = schedules
+		this.about = about
+		this.email = email
+		this.image_name = imageName
 	}
 
-	public getId(): string | undefined {
+	getId(): string | undefined {
 		return this.id
 	}
 
-	public getName(): string {
+	getName(): string {
 		return this.name
 	}
 
-	public getDescription(): string {
+	getDescription(): string {
 		return this.description
 	}
 
-	public getDirection(): string {
+	getDirection(): string {
 		return this.direction
 	}
 
-	public getPhone(): string {
+	getPhone(): string {
 		return this.phone
 	}
 
-	public getOwnersEmails(): string[] {
+	getOwnersEmails(): string[] {
 		return this.owners_emails
 	}
 
-	public setId(id: string): void {
+	getSchedules(): Schedule[] {
+		return this.schedules
+	}
+
+	getAbout(): string {
+		return this.about
+	}
+
+	getEmail(): string {
+		return this.email
+	}
+	getImageName(): string | undefined {
+		return this.image_name
+	}
+
+	setId(id: string): void {
 		this.id = id
 	}
 }

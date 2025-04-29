@@ -1,6 +1,6 @@
 import Store from '../domain/Store/Store'
 import StoreRepository from '../domain/Store/StoreRepository.interface'
-import IStoreService from './IStoreService.interface'
+import IStoreService, { ScheduleData } from './IStoreService.interface'
 import CountStores from './use_cases/CountStores'
 import FindStoresByName from './use_cases/FindStoresByName'
 import GetStoreById from './use_cases/GetStoreById'
@@ -48,16 +48,24 @@ export default class StoreService implements IStoreService {
 	registerStore(
 		name: string,
 		description: string,
+		about: string,
 		direction: string,
 		phone: string,
-		ownerEmail: string
+		email: string,
+		schedules: ScheduleData[],
+		ownerEmail: string,
+		imageName: string | undefined
 	): Promise<Store> {
 		return this._registerStore.execute(
 			name,
 			description,
+			about,
 			direction,
 			phone,
-			ownerEmail
+			email,
+			schedules,
+			ownerEmail,
+			imageName
 		)
 	}
 }

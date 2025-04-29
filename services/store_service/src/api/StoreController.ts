@@ -41,9 +41,30 @@ export default class StoreController {
 	}
 
 	registerStore(req: Request, res: Response): void {
-		const { name, description, direction, phone, owner_email } = req.body
+		const {
+			name,
+			description,
+			direction,
+			phone,
+			owner_email,
+			about,
+			email,
+			schedules,
+			image_name,
+		} = req.body
+
 		this.storeService
-			.registerStore(name, description, direction, phone, owner_email)
+			.registerStore(
+				name,
+				description,
+				about,
+				direction,
+				phone,
+				email,
+				schedules,
+				owner_email,
+				image_name
+			)
 			.then(store => res.status(201).json({ store }))
 			.catch(err => res.status(500).json({ error: err.message }))
 	}

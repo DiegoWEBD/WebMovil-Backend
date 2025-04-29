@@ -1,5 +1,18 @@
 import Store from '../domain/Store/Store'
 
+export type ScheduleData = {
+	day:
+		| 'Lunes'
+		| 'Martes'
+		| 'Miércoles'
+		| 'Jueves'
+		| 'Viernes'
+		| 'Sábado'
+		| 'Domingo'
+	open: string
+	close: string
+}
+
 export default interface IStoreService {
 	countStores(name: string): Promise<number>
 	getStores(
@@ -13,8 +26,12 @@ export default interface IStoreService {
 	registerStore(
 		name: string,
 		description: string,
+		about: string,
 		direction: string,
 		phone: string,
-		ownerEmail: string
+		email: string,
+		schedules: ScheduleData[],
+		ownerEmail: string,
+		imageName: string | undefined
 	): Promise<Store>
 }

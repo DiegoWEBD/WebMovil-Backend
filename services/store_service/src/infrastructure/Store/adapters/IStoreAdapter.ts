@@ -1,3 +1,4 @@
+import Schedule from '../../../domain/Schedule/Schedule'
 import Store from '../../../domain/Store/Store'
 import { IStore } from '../mongo_repository/StoreModel'
 
@@ -6,10 +7,16 @@ export default class IStoreAdapter extends Store {
 		super(
 			storeI.name,
 			storeI.description,
+			storeI.about,
 			storeI.direction,
 			storeI.phone,
-			storeI.owners_emails
+			storeI.email,
+			storeI.schedules.map(
+				schedule => new Schedule(schedule.day, schedule.open, schedule.close)
+			),
+			storeI.owners_emails,
+			storeI.image_name,
+			storeI._id.toString()
 		)
-		this.setId(storeI._id.toString())
 	}
 }
