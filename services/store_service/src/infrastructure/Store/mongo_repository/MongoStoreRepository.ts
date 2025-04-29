@@ -11,10 +11,7 @@ export default class MongoStoreRepository implements StoreRepository {
 			.connect(
 				'mongodb://admin:secret@mongodb:27017/store_service_db?authSource=admin'
 			)
-			.then(async () => {
-				await StoreModel.deleteMany({})
-				console.log('Base de datos de StoreService conectada')
-			})
+			.then(() => console.log('Base de datos de StoreService conectada'))
 			.catch(err =>
 				console.error(
 					'Error al conectar a la base de datos de StoreService:',
