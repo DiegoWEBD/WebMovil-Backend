@@ -8,7 +8,8 @@ export default interface IStockService {
 		description: string,
 		price: number,
 		storeId: string,
-		picture: string
+		picture: string,
+		stock: string
 	): Promise<Product>
 	registerProducts(products: any[]): Promise<Product[]>
 }

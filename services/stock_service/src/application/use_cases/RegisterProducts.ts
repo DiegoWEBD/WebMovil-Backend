@@ -12,14 +12,16 @@ export default class RegisterProducts {
 		const registeredProducts: Product[] = []
 
 		for (const productData of products) {
-			const { code, name, description, price, store_id, picture } = productData
+			const { code, name, description, price, store_id, picture, stock } =
+				productData
 			const newProduct = new Product(
 				code,
 				name,
 				description,
 				price,
 				store_id,
-				picture
+				picture,
+				stock
 			)
 			await this.productRepository.add(newProduct)
 			registeredProducts.push(newProduct)

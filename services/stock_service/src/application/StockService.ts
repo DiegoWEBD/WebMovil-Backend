@@ -29,7 +29,8 @@ export default class StockService implements IStockService {
 		description: string,
 		price: number,
 		storeId: string,
-		picture: string
+		picture: string,
+		stock: string
 	): Promise<Product> {
 		return await this._registerProduct.execute(
 			code,
@@ -37,7 +38,8 @@ export default class StockService implements IStockService {
 			description,
 			price,
 			storeId,
-			picture
+			picture,
+			stock
 		)
 	}
 

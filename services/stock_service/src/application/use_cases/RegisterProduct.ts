@@ -14,7 +14,8 @@ export default class RegisterProduct {
 		description: string,
 		price: number,
 		storeId: string,
-		picture: string
+		picture: string,
+		stock: string
 	): Promise<Product> {
 		const newProduct = new Product(
 			code,
@@ -22,7 +23,8 @@ export default class RegisterProduct {
 			description,
 			price,
 			storeId,
-			picture
+			picture,
+			stock
 		)
 		await this.productRepository.add(newProduct)
 		return newProduct

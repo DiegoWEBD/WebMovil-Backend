@@ -25,10 +25,11 @@ export default class StockController {
 			return
 		}
 
-		const { code, name, description, price, store_id, picture } = req.body
+		const { code, name, description, price, store_id, picture, stock } =
+			req.body
 
 		this.stockService
-			.registerProduct(code, name, description, price, store_id, picture)
+			.registerProduct(code, name, description, price, store_id, picture, stock)
 			.then(product => res.status(201).json(product))
 			.catch(error => res.status(500).json({ error: error.message }))
 	}

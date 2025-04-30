@@ -3,6 +3,7 @@ import Product from '../../../domain/Product/Product'
 import ProductRepository from '../../../domain/Product/ProductRepository.interface'
 import ProductModel from './ProductModel'
 import IProductAdapter from '../adapters/IProductAdapter'
+import ProductModelAdapter from '../adapters/ProductModelAdapter'
 
 export default class MongoProductRepository implements ProductRepository {
 	constructor() {
@@ -10,9 +11,7 @@ export default class MongoProductRepository implements ProductRepository {
 			.connect(
 				'mongodb://admin:secret@mongodb:27017/stock_service_db?authSource=admin'
 			)
-			.then(async () => {
-				console.log('Conectado a la base de datos de StockService')
-			})
+			.then(() => console.log('Conectado a la base de datos de StockService'))
 			.catch(err =>
 				console.error(
 					'Error al conectar a la base de datos de StockService:',
@@ -27,7 +26,7 @@ export default class MongoProductRepository implements ProductRepository {
 		return products.map(product => new IProductAdapter(product))
 	}
 	async add(product: Product): Promise<void> {
-		const newProduct = new ProductModel({ ...product })
+		const newProduct = new ProductModelAdapter(product)
 		await newProduct.save()
 	}
 }
