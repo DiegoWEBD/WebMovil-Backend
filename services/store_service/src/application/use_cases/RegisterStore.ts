@@ -1,7 +1,7 @@
 import axios from 'axios'
+import Schedule from '../../domain/Schedule/Schedule'
 import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
-import Schedule from '../../domain/Schedule/Schedule'
 import ScheduleData from '../types/ScheduleData'
 
 export default class RegisterStore {
@@ -22,13 +22,11 @@ export default class RegisterStore {
 		ownerEmail: string,
 		imageName: string | undefined
 	): Promise<Store> {
-		const similarStores = await this.storeRepository.findByName(name)
+		const existingStore = await this.storeRepository.findByName(name)
 
-		similarStores.forEach(store => {
-			if (store.getName() === name) {
-				throw new Error(`Nombre de tienda no disponible: ${name}`)
-			}
-		})
+		if (existingStore) {
+			throw new Error(`Nombre de tienda no disponible: ${name}`)
+		}
 
 		const ownerEmailEncoded = encodeURIComponent(ownerEmail)
 		let existingOwner
