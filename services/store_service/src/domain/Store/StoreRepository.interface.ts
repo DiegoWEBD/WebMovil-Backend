@@ -6,5 +6,4 @@ export default interface StoreRepository {
 	get(name: string, skip: number, limit: number): Promise<Store[]>
 	getById(id: string): Promise<Store | null>
 	getByOwnerEmail(email: string): Promise<Store[]>
-	findByName(name: string): Promise<Store[]>
 }

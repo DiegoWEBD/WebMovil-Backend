@@ -48,14 +48,4 @@ export default class MongoStoreRepository implements StoreRepository {
 		const stores = await StoreModel.find({ owners_emails: email })
 		return stores.map(store => new IStoreAdapter(store))
 	}
-
-	// revisar
-	async findByName(name: string): Promise<Store[]> {
-		/*const stores = await StoreModel.find({ name })
-		return stores.map(store => new IStoreAdapter(store))*/
-
-		const regex = new RegExp(name, 'i')
-		const stores = await StoreModel.find({ name: { $regex: regex } })
-		return stores.map(store => new IStoreAdapter(store))
-	}
 }

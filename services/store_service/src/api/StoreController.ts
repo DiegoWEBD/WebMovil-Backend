@@ -10,7 +10,7 @@ export default class StoreController {
 		this.getStores = this.getStores.bind(this)
 		this.registerStore = this.registerStore.bind(this)
 		this.getStoresByOwnerEmail = this.getStoresByOwnerEmail.bind(this)
-		this.findStoresByName = this.findStoresByName.bind(this)
+		this.getStoreById = this.getStoreById.bind(this)
 	}
 
 	async getStores(req: Request, res: Response): Promise<void> {
@@ -77,11 +77,11 @@ export default class StoreController {
 			.catch(err => res.status(500).json({ error: err.message }))
 	}
 
-	findStoresByName(req: Request, res: Response): void {
-		const storeName = req.query.name as string
+	getStoreById(req: Request, res: Response): void {
+		const storeId = req.params.id
 		this.storeService
-			.findStoresByName(storeName)
-			.then(stores => res.status(200).json({ stores }))
+			.getStoreById(storeId)
+			.then(store => res.status(200).json(store))
 			.catch(err => res.status(500).json({ error: err.message }))
 	}
 }

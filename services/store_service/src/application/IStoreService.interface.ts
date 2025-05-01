@@ -1,17 +1,6 @@
 import Store from '../domain/Store/Store'
-
-export type ScheduleData = {
-	day:
-		| 'Lunes'
-		| 'Martes'
-		| 'Miércoles'
-		| 'Jueves'
-		| 'Viernes'
-		| 'Sábado'
-		| 'Domingo'
-	open: string
-	close: string
-}
+import ScheduleData from './types/ScheduleData'
+import StoreSummary from './types/StoreSummary.interface'
 
 export default interface IStoreService {
 	countStores(name: string): Promise<number>
@@ -19,10 +8,9 @@ export default interface IStoreService {
 		name: string,
 		page: number | undefined,
 		limit: number | undefined
-	): Promise<Store[] | null>
+	): Promise<StoreSummary[]>
 	getStoreById(id: string): Promise<Store>
 	getStoresByOwnerEmail(email: string): Promise<Store[]>
-	findStoresByName(name: string): Promise<Store[]>
 	registerStore(
 		name: string,
 		description: string,

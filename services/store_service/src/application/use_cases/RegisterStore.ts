@@ -1,8 +1,8 @@
 import axios from 'axios'
 import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
-import { ScheduleData } from '../IStoreService.interface'
 import Schedule from '../../domain/Schedule/Schedule'
+import ScheduleData from '../types/ScheduleData'
 
 export default class RegisterStore {
 	private storeRepository: StoreRepository
