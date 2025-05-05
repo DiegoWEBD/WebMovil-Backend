@@ -6,7 +6,7 @@ import path from 'path'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Load RSA private key
 const PRIVATE_KEY = fs.readFileSync(
@@ -61,6 +61,31 @@ app.post('/oauth2/token', (req, res) => {
 
 	const token = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS256' })
 	res.json({ access_token: token, token_type: 'Bearer', expires_in: 300 })
+})
+
+app.post('/oauth2/validate', (req, res) => {
+	if (!req.body.access_token) {
+		res.status(400).json({ error: 'Token is required' })
+		return
+	}
+
+	jwt.verify(
+		req.body.access_token,
+		PRIVATE_KEY,
+		{
+			algorithms: ['RS256'],
+			audience: 'microservices',
+			issuer: 'https://auth.internal.local/',
+		},
+		(err, decoded) => {
+			if (err) {
+				res.status(401).json({ error: 'Invalid token' })
+				return
+			}
+
+			res.json({ valid: true, decoded })
+		}
+	)
 })
 
 app.listen(4000, () =>
