@@ -6,7 +6,7 @@ import path from 'path'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Load RSA private key
 const PRIVATE_KEY = fs.readFileSync(
@@ -45,7 +45,11 @@ app.post('/oauth2/token', (req, res) => {
 	const client = clients[client_id]
 
 	if (!client || client.secret !== client_secret) {
-		res.status(401).json({ error: 'Invalid client' })
+		res
+			.status(401)
+			.json({
+				error: 'Usted no posee los permisos para acceder a este recurso',
+			})
 		return
 	}
 
@@ -61,6 +65,43 @@ app.post('/oauth2/token', (req, res) => {
 
 	const token = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS256' })
 	res.json({ access_token: token, token_type: 'Bearer', expires_in: 300 })
+})
+
+app.post('/oauth2/validate', (req, res) => {
+	const { access_token, client_id, client_secret } = req.body
+
+	const client = clients[client_id]
+
+	if (!client || client.secret !== client_secret) {
+		res
+			.status(401)
+			.json({
+				error: 'Usted no posee los permisos para acceder a este recurso',
+			})
+		return
+	}
+
+	jwt.verify(
+		access_token,
+		PRIVATE_KEY,
+		{
+			algorithms: ['RS256'],
+			audience: 'microservices',
+			issuer: 'https://auth.internal.local/',
+		},
+		(err, decoded) => {
+			if (err) {
+				res
+					.status(401)
+					.json({
+						error: 'Usted no posee los permisos para acceder a este recurso',
+					})
+				return
+			}
+
+			res.json({ valid: true, decoded })
+		}
+	)
 })
 
 app.listen(4000, () =>
