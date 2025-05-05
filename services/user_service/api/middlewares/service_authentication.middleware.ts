@@ -6,10 +6,10 @@ const authenticateService = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const serviceToken = req.headers['X-Service-Authorization']
+	const serviceToken = req.headers['x-service-authorization']
 
 	const authenticationRequestHeaders = {
-		'X-Service-Authorization': serviceToken,
+		'x-service-authorization': serviceToken,
 	}
 
 	try {
@@ -17,9 +17,10 @@ const authenticateService = async (
 			headers: authenticationRequestHeaders,
 		})
 		next()
-	} catch (error) {
+	} catch (error: any) {
 		res.status(401).json({
-			error: 'Fallo en la autenticación del servicio',
+			error:
+				error.response?.data?.error || 'Fallo en la autenticación del servicio',
 		})
 		return
 	}
