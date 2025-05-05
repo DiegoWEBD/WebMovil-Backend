@@ -45,7 +45,11 @@ app.post('/oauth2/token', (req, res) => {
 	const client = clients[client_id]
 
 	if (!client || client.secret !== client_secret) {
-		res.status(401).json({ error: 'Invalid client' })
+		res
+			.status(401)
+			.json({
+				error: 'Usted no posee los permisos para acceder a este recurso',
+			})
 		return
 	}
 
@@ -64,13 +68,21 @@ app.post('/oauth2/token', (req, res) => {
 })
 
 app.post('/oauth2/validate', (req, res) => {
-	if (!req.body.access_token) {
-		res.status(400).json({ error: 'Token is required' })
+	const { access_token, client_id, client_secret } = req.body
+
+	const client = clients[client_id]
+
+	if (!client || client.secret !== client_secret) {
+		res
+			.status(401)
+			.json({
+				error: 'Usted no posee los permisos para acceder a este recurso',
+			})
 		return
 	}
 
 	jwt.verify(
-		req.body.access_token,
+		access_token,
 		PRIVATE_KEY,
 		{
 			algorithms: ['RS256'],
@@ -79,7 +91,11 @@ app.post('/oauth2/validate', (req, res) => {
 		},
 		(err, decoded) => {
 			if (err) {
-				res.status(401).json({ error: 'Invalid token' })
+				res
+					.status(401)
+					.json({
+						error: 'Usted no posee los permisos para acceder a este recurso',
+					})
 				return
 			}
 
