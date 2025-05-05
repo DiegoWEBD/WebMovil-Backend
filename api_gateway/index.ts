@@ -16,6 +16,7 @@ app.get('/', (_, res) => {
 	})
 })
 
+// Investigar seguridad de esta ruta
 app.use(
 	'/stores_portraits',
 	express.static(path.join(__dirname, './public/stores_portraits'))
