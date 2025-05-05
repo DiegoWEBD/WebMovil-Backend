@@ -2,7 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
-import { authMiddleware as userAuthMiddleware } from './middlewares/auth_middleware'
+import { authMiddleware as userAuthMiddleware } from './middlewares/auhtentication.middleware'
 import { authenticateApiGateway } from './middlewares/authenticate_api_gateway.middleware'
 
 const PORT = 3000
