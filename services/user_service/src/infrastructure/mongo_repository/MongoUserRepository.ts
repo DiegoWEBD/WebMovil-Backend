@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
-import User from '../../domain/User'
-import UserRepository from '../../domain/UserRepository.interface'
 import UserModel from './UserModel'
 import IUserAdapter from '../adapters/IUserAdapter'
 import UserModelAdapter from '../adapters/UserModelAdapter'
+import User from '../../domain/User'
+import UserRepository from '../../domain/UserRepository.interface'
 
 export default class MongoUserRepository implements UserRepository {
 	constructor() {

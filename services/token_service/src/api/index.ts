@@ -66,6 +66,13 @@ app.post('/oauth2/token', (req, res) => {
 })
 
 app.get('/oauth2/validate', (req, res) => {
+	if (!req.headers['x-service-authorization']) {
+		res.status(401).json({
+			error: 'Usted no posee los permisos para acceder a este recurso',
+		})
+		return
+	}
+
 	const authorizationHeader: string = req.headers[
 		'x-service-authorization'
 	] as string

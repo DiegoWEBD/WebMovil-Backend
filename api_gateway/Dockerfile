@@ -32,4 +32,4 @@ COPY --from=builder /app/yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 
 # Set the command (adjust the entry point if needed)
-CMD ["node", "dist/index.js"]
+CMD ["yarn", "start"]
