@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { NextFunction, Request, Response } from 'express'
+import serviceClient from '../axios/service_client'
 
 export const authMiddleware = async (
 	req: Request,
@@ -16,7 +16,7 @@ export const authMiddleware = async (
 	}
 
 	try {
-		const { data } = await axios.get('http://auth-service:3006/validate', {
+		const { data } = await serviceClient.get('/auth-service:3006/validate', {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},

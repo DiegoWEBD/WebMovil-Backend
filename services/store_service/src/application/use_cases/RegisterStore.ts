@@ -1,7 +1,7 @@
-import axios from 'axios'
 import Schedule from '../../domain/Schedule/Schedule'
 import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
+import serviceClient from '../../infrastructure/axios/service_client'
 import ScheduleData from '../types/ScheduleData'
 
 export default class RegisterStore {
@@ -32,7 +32,7 @@ export default class RegisterStore {
 		let existingOwner
 
 		try {
-			await axios.get(`http://api-gateway:3000/owners/${ownerEmailEncoded}`)
+			await serviceClient.get(`/owner-service:3005/${ownerEmailEncoded}`)
 			existingOwner = true
 		} catch (error) {
 			existingOwner = false

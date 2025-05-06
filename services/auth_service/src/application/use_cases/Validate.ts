@@ -1,4 +1,4 @@
-import axios from 'axios'
+import serviceClient from '../../infrastructure/axios/service_client'
 import { getGoogleUserEmail, validateGoogleAccessToken } from './shared'
 
 export default class Validate {
@@ -8,8 +8,8 @@ export default class Validate {
 		let existingUserResponse
 
 		try {
-			existingUserResponse = await axios.get(
-				`http://api-gateway:3000/users/${encodeURIComponent(email)}`
+			existingUserResponse = await serviceClient.get(
+				`/user-service:3001/${encodeURIComponent(email)}`
 			)
 		} catch (error) {
 			throw new Error('El correo ingresado no se encuentra registrado')

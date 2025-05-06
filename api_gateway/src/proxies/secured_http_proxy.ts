@@ -1,13 +1,13 @@
-import axios from 'axios'
-import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { Request, RequestHandler, Response } from 'express'
+import serviceClient from '../axios/service_client'
 
-const createHttpProxyMiddleware = (target: string): RequestHandler => {
-	return async (req: Request, res: Response, next: NextFunction) => {
+const createSecuredHttpProxy = (target: string): RequestHandler => {
+	return async (req: Request, res: Response) => {
 		const proxiedPath = req.originalUrl.replace(req.baseUrl, '') || '/'
 		const targetUrl = new URL(proxiedPath, target).toString()
 
 		try {
-			const response = await axios({
+			const response = await serviceClient({
 				method: req.method,
 				url: targetUrl,
 				data: req.body,
@@ -23,4 +23,4 @@ const createHttpProxyMiddleware = (target: string): RequestHandler => {
 	}
 }
 
-export default createHttpProxyMiddleware
+export default createSecuredHttpProxy

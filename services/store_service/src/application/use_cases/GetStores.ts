@@ -1,5 +1,5 @@
-import axios from 'axios'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
+import serviceClient from '../../infrastructure/axios/service_client'
 import StoreSummaryAdapter from '../../infrastructure/Store/adapters/StoreSummaryAdapter'
 import StoreSummary from '../types/StoreSummary.interface'
 
@@ -20,8 +20,8 @@ export default class GetStores {
 		const storeSummaries: StoreSummary[] = []
 
 		for (const store of stores) {
-			const { data } = await axios.get(
-				`http://stock-service:3003?store_id=${store.getId()}`
+			const { data } = await serviceClient.get(
+				`/stock-service:3003?store_id=${store.getId()}`
 			)
 			const storeSummary = new StoreSummaryAdapter(store)
 			storeSummary.setProductsCount(data.length)

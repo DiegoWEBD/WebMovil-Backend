@@ -2,9 +2,9 @@ import cors from 'cors'
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
-import { authMiddleware as userAuthMiddleware } from './middlewares/auhtentication.middleware'
+import { authMiddleware as userAuthMiddleware } from './middlewares/authentication.middleware'
 import { authenticateApiGateway } from './middlewares/authenticate_api_gateway.middleware'
-import createHttpProxyMiddleware from './proxies/http_proxy'
+import createSecuredHttpProxy from './proxies/secured_http_proxy'
 
 const PORT = 3000
 const app = express()
@@ -23,21 +23,9 @@ app.use(
 	express.static(path.join(__dirname, './public/stores_portraits'))
 )
 
-app.use(
-	'/auth',
-	authenticateApiGateway,
-	createHttpProxyMiddleware('http://auth-service:3006')
-)
+app.use('/auth', createSecuredHttpProxy('http://auth-service:3006'))
 
-app.use(
-	'/users',
-	authenticateApiGateway,
-	createHttpProxyMiddleware('http://user-service:3001')
-	/*createProxyMiddleware({
-		target: 'http://user-service:3001',
-		changeOrigin: true,
-	})*/
-)
+app.use('/users', createSecuredHttpProxy('http://user-service:3001'))
 
 app.use(
 	'/shipping',
@@ -53,28 +41,19 @@ app.use(
 app.use(
 	'/stock',
 	userAuthMiddleware,
-	authenticateApiGateway,
-	createProxyMiddleware({
-		target: 'http://stock-service:3003',
-		changeOrigin: true,
-	})
+	createSecuredHttpProxy('http://stock-service:3003')
 )
 
 app.use(
 	'/stores',
 	userAuthMiddleware,
-	authenticateApiGateway,
-	createProxyMiddleware({
-		target: 'http://store-service:3004',
-		changeOrigin: true,
-	})
+	createSecuredHttpProxy('http://store-service:3004')
 )
 
 app.use(
 	'/owners',
 	userAuthMiddleware,
-	authenticateApiGateway,
-	createHttpProxyMiddleware('http://owner-service:3005')
+	createSecuredHttpProxy('http://owner-service:3005')
 )
 
 app.listen(PORT, () =>
