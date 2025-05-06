@@ -43,6 +43,6 @@ export const authenticateApiGateway = async (
 
 	serviceToken = tokenCache.value
 
-	req.headers['X-Service-Authorization'] = `Bearer ${tokenCache.value}`
+	req.headers['x-service-authorization'] = `Bearer ${tokenCache.value}`
 	next()
 }

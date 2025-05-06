@@ -6,15 +6,11 @@ const authenticateService = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const serviceToken = req.headers['x-service-authorization']
-
-	const authenticationRequestHeaders = {
-		'x-service-authorization': serviceToken,
-	}
-
 	try {
 		await axios.get('http://token-service:4000/oauth2/validate', {
-			headers: authenticationRequestHeaders,
+			headers: {
+				'x-service-authorization': req.headers['x-service-authorization'],
+			},
 		})
 		next()
 	} catch (error: any) {

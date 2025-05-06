@@ -4,6 +4,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import path from 'path'
 import { authMiddleware as userAuthMiddleware } from './middlewares/auhtentication.middleware'
 import { authenticateApiGateway } from './middlewares/authenticate_api_gateway.middleware'
+import createHttpProxyMiddleware from './proxies/http_proxy'
 
 const PORT = 3000
 const app = express()
@@ -23,12 +24,19 @@ app.use(
 )
 
 app.use(
+	'/auth',
+	authenticateApiGateway,
+	createHttpProxyMiddleware('http://auth-service:3006')
+)
+
+app.use(
 	'/users',
 	authenticateApiGateway,
-	createProxyMiddleware({
+	createHttpProxyMiddleware('http://user-service:3001')
+	/*createProxyMiddleware({
 		target: 'http://user-service:3001',
 		changeOrigin: true,
-	})
+	})*/
 )
 
 app.use(
@@ -66,19 +74,7 @@ app.use(
 	'/owners',
 	userAuthMiddleware,
 	authenticateApiGateway,
-	createProxyMiddleware({
-		target: 'http://owner-service:3005',
-		changeOrigin: true,
-	})
-)
-
-app.use(
-	'/auth',
-	authenticateApiGateway,
-	createProxyMiddleware({
-		target: 'http://auth-service:3006',
-		changeOrigin: true,
-	})
+	createHttpProxyMiddleware('http://owner-service:3005')
 )
 
 app.listen(PORT, () =>

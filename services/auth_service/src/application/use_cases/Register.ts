@@ -13,10 +13,23 @@ export default class Register {
 		const email = await getGoogleUserEmail(googleAccessToken)
 		let existingUser: boolean
 
+		const serviceAuthResponse = await axios.post(
+			'http://token-service:4000/oauth2/token',
+			{
+				grant_type: 'client_credentials',
+				client_id: process.env.CLIENT_ID,
+				client_secret: process.env.CLIENT_SECRET,
+			}
+		)
+
+		const serviceToken: string = serviceAuthResponse.data.access_token
+
 		try {
-			await axios.get(
-				`http://api-gateway:3000/users/${encodeURIComponent(email)}`
-			)
+			await axios.get(`http://user-service:3001/${encodeURIComponent(email)}`, {
+				headers: {
+					'x-service-authorization': `Bearer ${serviceToken}`,
+				},
+			})
 			existingUser = true
 		} catch (_) {
 			existingUser = false
@@ -39,12 +52,31 @@ export default class Register {
 		fullName: string,
 		profilePicture: string
 	): Promise<string> {
-		const response = await axios.post('http://owner-service:3005', {
-			email,
-			phone,
-			full_name: fullName,
-			profile_picture: profilePicture,
-		})
+		const serviceAuthResponse = await axios.post(
+			'http://token-service:4000/oauth2/token',
+			{
+				grant_type: 'client_credentials',
+				client_id: process.env.CLIENT_ID,
+				client_secret: process.env.CLIENT_SECRET,
+			}
+		)
+
+		const serviceToken: string = serviceAuthResponse.data.access_token
+
+		const response = await axios.post(
+			'http://owner-service:3005',
+			{
+				email,
+				phone,
+				full_name: fullName,
+				profile_picture: profilePicture,
+			},
+			{
+				headers: {
+					'x-service-authorization': `Bearer ${serviceToken}`,
+				},
+			}
+		)
 		return response.data.email
 	}
 }
