@@ -1,0 +1,79 @@
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    command: mongod --quiet --logpath /dev/null # Deshabilitar logs de mongo
+
+  token-service:
+    build: ./services/token_service
+    ports:
+      - '4000:4000'
+
+  auth-service:
+    build: ./services/auth_service
+    ports:
+      - '3006:3006'
+    env_file:
+      - ./services/auth_service/.env
+
+  user-service:
+    build: ./services/user_service
+    ports:
+      - '3001:3001'
+    env_file:
+      - ./services/user_service/.env
+    depends_on:
+      - mongodb
+
+  shipping-service:
+    build: ./services/shipping_service
+    ports:
+      - '3002:3002'
+    depends_on:
+      - mongodb
+
+  stock-service:
+    build: ./services/stock_service
+    ports:
+      - '3003:3003'
+    env_file:
+      - ./services/stock_service/.env
+    depends_on:
+      - mongodb
+
+  store-service:
+    build: ./services/store_service
+    ports:
+      - '3004:3004'
+    env_file:
+      - ./services/store_service/.env
+    depends_on:
+      - mongodb
+
+  owner-service:
+    build: ./services/owner_service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./services/owner_service/.env
+    depends_on:
+      - mongodb
+
+  api-gateway:
+    build: ./api_gateway
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./api_gateway/.env
+    depends_on:
+      - token-service
+      - auth-service
+      - user-service
+      - shipping-service
+      - stock-service
+      - store-service
+      - owner-service

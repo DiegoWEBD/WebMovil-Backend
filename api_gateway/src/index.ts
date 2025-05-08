@@ -24,7 +24,6 @@ app.use(
 )
 
 app.use('/auth', createSecuredHttpProxy('http://auth-service:3006'))
-
 app.use('/users', createSecuredHttpProxy('http://user-service:3001'))
 
 app.use(
