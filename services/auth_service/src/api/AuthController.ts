@@ -12,7 +12,6 @@ export default class AuthController {
 	}
 
 	validate(req: Request, res: Response): void {
-		console.log('Validating user token')
 		if (!req.headers.authorization) {
 			res.status(401).json({
 				error: 'Se ha proporcionado un access_token de Google inválido',
@@ -28,8 +27,6 @@ export default class AuthController {
 	}
 
 	register(req: Request, res: Response): void {
-		console.log('Registering user')
-		console.log(req.body)
 		if (!req.headers.authorization) {
 			res.status(401).json({
 				error: 'Se ha proporcionado un access_token de Google inválido',
