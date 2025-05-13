@@ -1,5 +1,6 @@
 import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
+import OwnerStoreSummary from '../types/OwnerStoreSummary'
 
 export default class GetStoresByOwnerEmail {
 	private storeRepository: StoreRepository
@@ -8,7 +9,7 @@ export default class GetStoresByOwnerEmail {
 		this.storeRepository = storeRepository
 	}
 
-	async execute(email: string): Promise<Store[]> {
+	async execute(email: string): Promise<OwnerStoreSummary[]> {
 		return await this.storeRepository.getByOwnerEmail(email)
 	}
 }

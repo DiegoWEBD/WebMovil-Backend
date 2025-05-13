@@ -1,6 +1,7 @@
 import Store from '../domain/Store/Store'
 import StoreRepository from '../domain/Store/StoreRepository.interface'
 import IStoreService from './IStoreService.interface'
+import OwnerStoreSummary from './types/OwnerStoreSummary'
 import ScheduleData from './types/ScheduleData'
 import StoreSummary from './types/StoreSummary.interface'
 import CountStores from './use_cases/CountStores'
@@ -39,7 +40,7 @@ export default class StoreService implements IStoreService {
 	getStoreById(id: string): Promise<Store> {
 		return this._getStoreById.execute(id)
 	}
-	getStoresByOwnerEmail(email: string): Promise<Store[]> {
+	getStoresByOwnerEmail(email: string): Promise<OwnerStoreSummary[]> {
 		return this._getStoresByOwnerEmail.execute(email)
 	}
 

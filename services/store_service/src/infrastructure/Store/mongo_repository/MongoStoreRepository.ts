@@ -3,7 +3,9 @@ import StoreRepository from '../../../domain/Store/StoreRepository.interface'
 import Store from '../../../domain/Store/Store'
 import StoreModelAdapter from '../adapters/StoreModelAdapter'
 import IStoreAdapter from '../adapters/IStoreAdapter'
-import StoreModel from './StoreModel'
+import StoreModel, { IStore } from './StoreModel'
+import OwnerStoreSummary from '../../../application/types/OwnerStoreSummary'
+import OwnerStoreSummaryAdapter from '../adapters/OwnerStoreSummaryAdapter'
 
 export default class MongoStoreRepository implements StoreRepository {
 	constructor() {
@@ -44,9 +46,9 @@ export default class MongoStoreRepository implements StoreRepository {
 		return store ? new IStoreAdapter(store) : null
 	}
 
-	async getByOwnerEmail(email: string): Promise<Store[]> {
-		const stores = await StoreModel.find({ owners_emails: email })
-		return stores.map(store => new IStoreAdapter(store))
+	async getByOwnerEmail(email: string): Promise<OwnerStoreSummary[]> {
+		const stores: IStore[] = await StoreModel.find({ owners_emails: email })
+		return stores.map(store => new OwnerStoreSummaryAdapter(store))
 	}
 
 	// revisar

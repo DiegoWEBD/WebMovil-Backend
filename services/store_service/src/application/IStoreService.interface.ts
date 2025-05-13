@@ -1,4 +1,5 @@
 import Store from '../domain/Store/Store'
+import OwnerStoreSummary from './types/OwnerStoreSummary'
 import ScheduleData from './types/ScheduleData'
 import StoreSummary from './types/StoreSummary.interface'
 
@@ -10,7 +11,7 @@ export default interface IStoreService {
 		limit: number | undefined
 	): Promise<StoreSummary[]>
 	getStoreById(id: string): Promise<Store>
-	getStoresByOwnerEmail(email: string): Promise<Store[]>
+	getStoresByOwnerEmail(email: string): Promise<OwnerStoreSummary[]>
 	registerStore(
 		name: string,
 		description: string,

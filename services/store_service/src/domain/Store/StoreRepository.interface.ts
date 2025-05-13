@@ -1,3 +1,4 @@
+import OwnerStoreSummary from '../../application/types/OwnerStoreSummary'
 import Store from './Store'
 
 export default interface StoreRepository {
@@ -5,6 +6,6 @@ export default interface StoreRepository {
 	add(store: Store): Promise<void>
 	get(name: string, skip: number, limit: number): Promise<Store[]>
 	getById(id: string): Promise<Store | null>
-	getByOwnerEmail(email: string): Promise<Store[]>
+	getByOwnerEmail(email: string): Promise<OwnerStoreSummary[]>
 	findByName(name: string): Promise<Store | null>
 }

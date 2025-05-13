@@ -10,7 +10,7 @@ const router = Router()
 
 router.get('/', storeController.getStores)
 router.get('/:id', storeController.getStoreById)
-router.get('/:owner_email', storeController.getStoresByOwnerEmail)
+router.get('/owner/:owner_email', storeController.getStoresByOwnerEmail)
 router.post('/', storeController.registerStore)
 
 export default router
