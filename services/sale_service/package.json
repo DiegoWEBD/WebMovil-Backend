@@ -1,0 +1,22 @@
+{
+	"name": "sale_service",
+	"version": "1.0.0",
+	"main": "dist/api/index.js",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist/api/index.js",
+		"dev": "nodemon src/api/index.ts"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.1",
+		"nodemon": "^3.1.9",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"axios": "^1.9.0",
+		"express": "^5.1.0",
+		"mongoose": "^8.13.2"
+	}
+}

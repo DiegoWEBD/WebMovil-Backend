@@ -1,6 +1,10 @@
 import Product from '../domain/Product/Product'
 
 export default interface IStockService {
+	getProduct(
+		code: string,
+		storeId: string | undefined
+	): Promise<Product | Product[]>
 	getProducts(storeId: string | undefined): Promise<Product[]>
 	registerProduct(
 		code: string,

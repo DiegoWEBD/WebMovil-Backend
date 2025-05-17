@@ -55,6 +55,12 @@ app.use(
 	createSecuredHttpProxy('http://owner-service:3005')
 )
 
+app.use(
+	'/sales',
+	userAuthMiddleware,
+	createSecuredHttpProxy('http://sale-service:3007')
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )

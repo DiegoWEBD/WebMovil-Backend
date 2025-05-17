@@ -9,10 +9,16 @@ export default class GetStoreById {
 	}
 
 	async execute(id: string): Promise<Store> {
-		const store = await this.storeRepository.getById(id)
+		let store: Store | null
+
+		try {
+			store = await this.storeRepository.getById(id)
+		} catch (error) {
+			throw new Error(`No se encontró la tienda (id: ${id})`) // revisar
+		}
 
 		if (!store) {
-			throw new Error(`No se encontró la tienda (id = ${id})`)
+			throw new Error(`No se encontró la tienda (id: ${id})`)
 		}
 
 		return store

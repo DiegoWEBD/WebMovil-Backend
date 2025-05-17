@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Product from '../domain/Product/Product'
 import ProductRepository from '../domain/Product/ProductRepository.interface'
 import IStockService from './IStockService.interface'
@@ -17,6 +18,30 @@ export default class StockService implements IStockService {
 		this._getProducts = new GetProducts(this.productRepository)
 		this._registerProduct = new RegisterProduct(this.productRepository)
 		this._registerProducts = new RegisterProducts(this.productRepository)
+	}
+
+	async getProduct(
+		code: string,
+		storeId: string | undefined
+	): Promise<Product | Product[]> {
+		// validate store
+		if (storeId) {
+			const { data } = await axios.post(
+				`${process.env.TOKEN_SERVICE_URL}/token`,
+				{
+					grant_type: 'client_credentials',
+					client_id: process.env.CLIENT_ID,
+					client_secret: process.env.CLIENT_SECRET,
+				}
+			)
+			await axios.get(`${process.env.STORE_SERVICE_URL}/${storeId}`, {
+				headers: {
+					'x-service-authorization': `${data.token_type} ${data.access_token}`,
+				},
+			})
+		}
+
+		return await this.productRepository.findByCode(code, storeId)
 	}
 
 	async getProducts(storeId: string | undefined): Promise<Product[]> {

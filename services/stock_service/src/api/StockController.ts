@@ -1,14 +1,25 @@
 import { Request, Response } from 'express'
-import StockService from '../application/StockService'
+import IStockService from '../application/IStockService.interface'
 
 export default class StockController {
-	private stockService: StockService
+	private stockService: IStockService
 
-	constructor(stockService: StockService) {
+	constructor(stockService: IStockService) {
 		this.stockService = stockService
 
+		this.getProduct = this.getProduct.bind(this)
 		this.getProducts = this.getProducts.bind(this)
 		this.registerProduct = this.registerProduct.bind(this)
+	}
+
+	getProduct(req: Request, res: Response): void {
+		const code = req.params.code as string
+		const storeId = req.query.store_id as string | undefined
+
+		this.stockService
+			.getProduct(code, storeId)
+			.then(product => res.status(200).json(product))
+			.catch(error => res.status(500).json({ error: error.message }))
 	}
 
 	getProducts(req: Request, res: Response): void {

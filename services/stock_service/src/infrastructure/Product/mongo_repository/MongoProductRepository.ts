@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import Product from '../../../domain/Product/Product'
 import ProductRepository from '../../../domain/Product/ProductRepository.interface'
-import ProductModel from './ProductModel'
 import IProductAdapter from '../adapters/IProductAdapter'
 import ProductModelAdapter from '../adapters/ProductModelAdapter'
+import ProductModel from './ProductModel'
 
 export default class MongoProductRepository implements ProductRepository {
 	constructor() {
@@ -18,6 +18,26 @@ export default class MongoProductRepository implements ProductRepository {
 					err
 				)
 			)
+	}
+
+	async findByCode(
+		code: string,
+		storeId: string | undefined
+	): Promise<Product | Product[]> {
+		const query = storeId ? { code, store_id: storeId } : { code }
+
+		if (storeId) {
+			const product = await ProductModel.findOne({ code, store_id: storeId })
+
+			if (!product) {
+				throw new Error(`La tienda ${storeId} no vende el producto ${code}`)
+			}
+
+			return new IProductAdapter(product)
+		}
+
+		const products = await ProductModel.find(query)
+		return products.map(product => new IProductAdapter(product))
 	}
 
 	async getAll(storeId: string | undefined): Promise<Product[]> {

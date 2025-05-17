@@ -1,4 +1,3 @@
-import Store from '../../domain/Store/Store'
 import StoreRepository from '../../domain/Store/StoreRepository.interface'
 import OwnerStoreSummary from '../types/OwnerStoreSummary'
 

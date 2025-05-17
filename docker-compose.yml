@@ -62,6 +62,14 @@ services:
       - ./services/owner_service/.env
     depends_on:
       - mongodb
+  sale-service:
+    build: ./services/sale_service
+    ports:
+      - '3007:3007'
+    env_file:
+      - ./services/sale_service/.env
+    depends_on:
+      - mongodb
 
   api-gateway:
     build: ./api_gateway
@@ -77,3 +85,4 @@ services:
       - stock-service
       - store-service
       - owner-service
+      - sale-service
