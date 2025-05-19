@@ -13,13 +13,34 @@ export default class MongoStoreRepository implements StoreRepository {
 			.connect(
 				'mongodb://admin:secret@mongodb:27017/store_service_db?authSource=admin'
 			)
-			.then(() => console.log('Base de datos de StoreService conectada'))
+			.then(async () => {
+				await this.updateOwnerEmail(
+					'diego.maldonado@alumnos.ucn.cl',
+					'diego.maldonado.1alsf@gmail.com'
+				)
+				console.log('Base de datos de StoreService conectada')
+			})
 			.catch(err =>
 				console.error(
 					'Error al conectar a la base de datos de StoreService:',
 					err
 				)
 			)
+	}
+
+	/**
+	 * Create a function that changes the ower_email from 'diego.maldonado@alumnos.ucn.cl'
+	 * to 'diego.maldonado.1alsf@gmail.com' for all the stores that are registered in the database
+	 */
+
+	async updateOwnerEmail(oldEmail: string, newEmail: string): Promise<void> {
+		const stores = await StoreModel.find({ owners_emails: oldEmail })
+		for (const store of stores) {
+			store.owners_emails = store.owners_emails.map(email =>
+				email === oldEmail ? newEmail : email
+			)
+			await store.save()
+		}
 	}
 
 	async count(name: string): Promise<number> {
