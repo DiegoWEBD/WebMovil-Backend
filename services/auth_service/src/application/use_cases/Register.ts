@@ -1,4 +1,5 @@
 import serviceClient from '../../infrastructure/axios/service_client'
+import BasicUserInfo from '../types/BasicUserInfo'
 import { getGoogleUserInfo, validateGoogleAccessToken } from './shared'
 
 export default class Register {
@@ -8,7 +9,7 @@ export default class Register {
 		fullName: string,
 		profilePicture: string,
 		userType: string
-	): Promise<string> {
+	): Promise<BasicUserInfo> {
 		await validateGoogleAccessToken(googleAccessToken)
 		const userInfo = await getGoogleUserInfo(googleAccessToken)
 		let existingUser: boolean
@@ -33,9 +34,16 @@ export default class Register {
 				userInfo.name,
 				profilePicture
 			)
+		} else if (userType === 'client') {
+			return await this.registerClient(
+				userInfo.email,
+				phone,
+				userInfo.name,
+				profilePicture
+			)
 		}
 
-		return ''
+		throw new Error('Tipo de usuario inválido')
 	}
 
 	private async registerOwner(
@@ -43,13 +51,31 @@ export default class Register {
 		phone: string,
 		fullName: string,
 		profilePicture: string
-	): Promise<string> {
+	): Promise<BasicUserInfo> {
 		const response = await serviceClient.post('/owner-service:3005', {
 			email,
 			phone,
 			full_name: fullName,
 			profile_picture: profilePicture,
 		})
-		return response.data.email
+
+		return { email: response.data.email, user_type: 'owner' }
+	}
+
+	private async registerClient(
+		email: string,
+		phone: string,
+		fullName: string,
+		profilePicture: string
+	): Promise<BasicUserInfo> {
+		const response = await serviceClient.post('/user-service:3001', {
+			email,
+			phone,
+			full_name: fullName,
+			profile_picture: profilePicture,
+			user_type: 'client',
+		})
+
+		return { email: response.data.email, user_type: 'client' }
 	}
 }

@@ -1,3 +1,5 @@
+import BasicUserInfo from './types/BasicUserInfo'
+
 export default interface IGoogleAuthService {
 	validate(googleAccessToken: string): Promise<any>
 	register(
@@ -6,5 +8,5 @@ export default interface IGoogleAuthService {
 		fullName: string,
 		profilePicture: string,
 		userType: string
-	): Promise<string>
+	): Promise<BasicUserInfo>
 }

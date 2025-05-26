@@ -1,4 +1,5 @@
 import IGoogleAuthService from './IGoogleAuthService.interface'
+import BasicUserInfo from './types/BasicUserInfo'
 import Register from './use_cases/Register'
 import Validate from './use_cases/Validate'
 
@@ -21,7 +22,7 @@ export default class GoogleAuthService implements IGoogleAuthService {
 		fullName: string,
 		profilePicture: string,
 		userType: string
-	): Promise<string> {
+	): Promise<BasicUserInfo> {
 		return this._register.execute(
 			googleAccessToken,
 			phone,
