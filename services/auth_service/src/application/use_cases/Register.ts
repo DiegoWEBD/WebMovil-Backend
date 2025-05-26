@@ -1,5 +1,5 @@
 import serviceClient from '../../infrastructure/axios/service_client'
-import { getGoogleUserEmail, validateGoogleAccessToken } from './shared'
+import { getGoogleUserInfo, validateGoogleAccessToken } from './shared'
 
 export default class Register {
 	async execute(
@@ -10,11 +10,13 @@ export default class Register {
 		userType: string
 	): Promise<string> {
 		await validateGoogleAccessToken(googleAccessToken)
-		const email = await getGoogleUserEmail(googleAccessToken)
+		const userInfo = await getGoogleUserInfo(googleAccessToken)
 		let existingUser: boolean
 
 		try {
-			await serviceClient.get(`/user-service:3001/${encodeURIComponent(email)}`)
+			await serviceClient.get(
+				`/user-service:3001/${encodeURIComponent(userInfo.email)}`
+			)
 			existingUser = true
 		} catch (_) {
 			existingUser = false
@@ -25,7 +27,12 @@ export default class Register {
 		}
 
 		if (userType === 'owner') {
-			return await this.registerOwner(email, phone, fullName, profilePicture)
+			return await this.registerOwner(
+				userInfo.email,
+				phone,
+				userInfo.name,
+				profilePicture
+			)
 		}
 
 		return ''

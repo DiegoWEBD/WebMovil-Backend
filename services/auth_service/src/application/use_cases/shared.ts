@@ -26,3 +26,26 @@ export const getGoogleUserEmail = async (
 
 	return data.email
 }
+
+export const getGoogleUserInfo = async (
+	googleAccessToken: string
+): Promise<GoogleUserInfo> => {
+	const { data } = await axios.get(
+		'https://www.googleapis.com/oauth2/v3/userinfo',
+		{
+			headers: {
+				Authorization: `Bearer ${googleAccessToken}`,
+			},
+		}
+	)
+
+	return {
+		email: data.email,
+		name: data.name,
+	}
+}
+
+export type GoogleUserInfo = {
+	name: string
+	email: string
+}
