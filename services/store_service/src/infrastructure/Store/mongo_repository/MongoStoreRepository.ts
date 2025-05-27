@@ -6,6 +6,7 @@ import IStoreAdapter from '../adapters/IStoreAdapter'
 import StoreModel, { IStore } from './StoreModel'
 import OwnerStoreSummary from '../../../application/types/OwnerStoreSummary'
 import OwnerStoreSummaryAdapter from '../adapters/OwnerStoreSummaryAdapter'
+import { loadFakeStores } from './load_fake_stores'
 
 export default class MongoStoreRepository implements StoreRepository {
 	constructor() {
@@ -13,7 +14,10 @@ export default class MongoStoreRepository implements StoreRepository {
 			.connect(
 				'mongodb://admin:secret@mongodb:27017/store_service_db?authSource=admin'
 			)
-			.then(() => console.log('Base de datos de StoreService conectada'))
+			.then(async () => {
+				console.log('Base de datos de StoreService conectada')
+				//await loadFakeStores()
+			})
 			.catch(err =>
 				console.error(
 					'Error al conectar a la base de datos de StoreService:',

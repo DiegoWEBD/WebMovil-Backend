@@ -1,0 +1,88 @@
+import StoreModel from './StoreModel'
+import { ISchedule } from './ScheduleSchema'
+
+const generateRandomSchedule = (): ISchedule[] => {
+	return [
+		{
+			day: 'Lunes',
+			open: '09:00',
+			close: '18:00',
+		},
+		{
+			day: 'Martes',
+			open: '09:00',
+			close: '18:00',
+		},
+		{
+			day: 'Miércoles',
+			open: '09:00',
+			close: '18:00',
+		},
+		{
+			day: 'Jueves',
+			open: '09:00',
+			close: '18:00',
+		},
+		{
+			day: 'Viernes',
+			open: '09:00',
+			close: '18:00',
+		},
+	]
+}
+
+const storeNames = [
+	'Almacén Doña Clara',
+	'Panadería El Trigal',
+	'Verdulería San Pedro',
+	'Botillería La Esquina',
+	'Librería Central',
+	'Café Aromas del Sur',
+	'Ferretería Los Andes',
+	'Bazar El Encuentro',
+	'Carnicería El Gaucho',
+	'Supermercado La Familia',
+	'Floristería El Jardín',
+	'Peluquería Estilo Chic',
+	/*'Tienda Ropa Viva',
+	'Empanadas El Rincón',
+	'Pizzería Don Mario',
+	'Farmacia Vida Sana',
+	'Zapatería Paso Firme',
+	'Veterinaria Huellitas',
+	'Juguetería Mundo Feliz',
+	'Minimarket El Faro',
+	'Papelería Cuaderno Azul',
+	'Heladería Dulce Nieve',
+	'Tienda Orgánica Natural',
+	'Centro de Copiado Rápido',
+	'Frutería El Paraíso',
+	'Repuestos El Motor',
+	'Barbería El Maestro',
+	'Restaurante Sabor Chileno',
+	'Lencería Encanto',
+	'Kiosco La Amistad',*/
+]
+
+export const loadFakeStores = async () => {
+	try {
+		await StoreModel.deleteMany({}) // Clean before insert
+
+		const fakeStores = storeNames.map(name => ({
+			name,
+			description: `Descripción de ${name.toLowerCase()}`,
+			about: `Acerca de ${name.toLowerCase()}, un negocio tradicional en Chile.`,
+			direction: `Calle Falsa ${Math.floor(Math.random() * 1000)}, Santiago`,
+			phone: `+56 9 ${Math.floor(10000000 + Math.random() * 89999999)}`,
+			email: `${name.toLowerCase().replace(/\s+/g, '')}@correo.cl`,
+			schedules: generateRandomSchedule(),
+			owners_emails: ['diego.maldonado.1alsf@gmail.com'],
+			image_name: undefined,
+		}))
+
+		await StoreModel.insertMany(fakeStores)
+		console.log(`${storeNames.length} tiendas falsas insertadas correctamente.`)
+	} catch (err) {
+		console.error('Error al insertar tiendas falsas:', err)
+	}
+}
