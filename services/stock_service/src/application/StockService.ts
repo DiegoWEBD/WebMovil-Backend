@@ -44,8 +44,13 @@ export default class StockService implements IStockService {
 		return await this.productRepository.findByCode(code, storeId)
 	}
 
-	async getProducts(storeId: string | undefined): Promise<Product[]> {
-		return await this._getProducts.execute(storeId)
+	async getProducts(
+		storeId: string | undefined,
+		productName: string | undefined,
+		page: number | undefined,
+		limit: number | undefined
+	): Promise<Product[]> {
+		return await this._getProducts.execute(storeId, productName, page, limit)
 	}
 
 	async registerProduct(
@@ -70,5 +75,12 @@ export default class StockService implements IStockService {
 
 	async registerProducts(products: any): Promise<Product[]> {
 		return await this._registerProducts.execute(products)
+	}
+
+	async countProducts(
+		storeId: string | undefined = '',
+		productName: string | undefined = ''
+	): Promise<number> {
+		return await this.productRepository.count(storeId, productName)
 	}
 }

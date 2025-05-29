@@ -8,7 +8,18 @@ export default class GetProducts {
 		this.productRepository = productRepository
 	}
 
-	async execute(storeId: string | undefined): Promise<Product[]> {
-		return await this.productRepository.getAll(storeId)
+	async execute(
+		storeId: string | undefined,
+		productName: string | undefined = '',
+		page: number | undefined = 1,
+		limit: number | undefined = 10
+	): Promise<Product[]> {
+		const skip = (page - 1) * limit
+		return await this.productRepository.getAll(
+			storeId,
+			productName,
+			skip,
+			limit
+		)
 	}
 }

@@ -5,7 +5,12 @@ export default interface IStockService {
 		code: string,
 		storeId: string | undefined
 	): Promise<Product | Product[]>
-	getProducts(storeId: string | undefined): Promise<Product[]>
+	getProducts(
+		storeId: string | undefined,
+		productName: string | undefined,
+		page: number | undefined,
+		limit: number | undefined
+	): Promise<Product[]>
 	registerProduct(
 		code: string,
 		name: string,
@@ -16,4 +21,8 @@ export default interface IStockService {
 		stock: string
 	): Promise<Product>
 	registerProducts(products: any[]): Promise<Product[]>
+	countProducts(
+		storeId: string | undefined,
+		productName: string | undefined
+	): Promise<number>
 }

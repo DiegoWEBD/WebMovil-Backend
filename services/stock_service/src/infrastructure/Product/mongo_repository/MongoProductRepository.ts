@@ -24,6 +24,14 @@ export default class MongoProductRepository implements ProductRepository {
 			)
 	}
 
+	async count(storeId: string, productName: string): Promise<number> {
+		const regex = new RegExp(productName, 'i')
+		return await ProductModel.find({
+			store_id: { $regex: new RegExp(storeId, 'i') },
+			name: { $regex: regex },
+		}).countDocuments()
+	}
+
 	async findByCode(
 		code: string,
 		storeId: string | undefined
@@ -44,9 +52,20 @@ export default class MongoProductRepository implements ProductRepository {
 		return products.map(product => new IProductAdapter(product))
 	}
 
-	async getAll(storeId: string | undefined): Promise<Product[]> {
+	async getAll(
+		storeId: string | undefined,
+		productName: string,
+		skip: number,
+		limit: number
+	): Promise<Product[]> {
 		const query = storeId ? { store_id: storeId } : {}
-		const products = await ProductModel.find(query)
+		const regex = new RegExp(productName, 'i')
+		const products = await ProductModel.find({
+			...query,
+			name: { $regex: regex },
+		})
+			.skip(skip)
+			.limit(limit)
 		return products.map(product => new IProductAdapter(product))
 	}
 	async add(product: Product): Promise<void> {
