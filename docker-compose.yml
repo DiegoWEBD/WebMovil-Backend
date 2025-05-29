@@ -44,6 +44,7 @@ services:
       - ./services/stock_service/.env
     depends_on:
       - mongodb
+      - store-service
 
   store-service:
     build: ./services/store_service

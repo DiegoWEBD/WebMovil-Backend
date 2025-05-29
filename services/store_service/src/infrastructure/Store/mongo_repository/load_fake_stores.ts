@@ -44,24 +44,6 @@ const storeNames = [
 	'Supermercado La Familia',
 	'Floristería El Jardín',
 	'Peluquería Estilo Chic',
-	/*'Tienda Ropa Viva',
-	'Empanadas El Rincón',
-	'Pizzería Don Mario',
-	'Farmacia Vida Sana',
-	'Zapatería Paso Firme',
-	'Veterinaria Huellitas',
-	'Juguetería Mundo Feliz',
-	'Minimarket El Faro',
-	'Papelería Cuaderno Azul',
-	'Heladería Dulce Nieve',
-	'Tienda Orgánica Natural',
-	'Centro de Copiado Rápido',
-	'Frutería El Paraíso',
-	'Repuestos El Motor',
-	'Barbería El Maestro',
-	'Restaurante Sabor Chileno',
-	'Lencería Encanto',
-	'Kiosco La Amistad',*/
 ]
 
 export const loadFakeStores = async () => {
