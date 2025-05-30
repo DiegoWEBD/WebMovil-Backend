@@ -14,7 +14,7 @@ export default class MongoProductRepository implements ProductRepository {
 			)
 			.then(async () => {
 				console.log('Conectado a la base de datos de StockService')
-				await loadFakeProducts()
+				//await loadFakeProducts()
 			})
 			.catch(err =>
 				console.error(
