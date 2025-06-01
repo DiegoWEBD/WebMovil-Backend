@@ -4,5 +4,6 @@ export default interface SaleJSON {
 	store_id: string
 	total: number
 	date: Date
+	status: string
 	feedback_id: string | undefined
 }

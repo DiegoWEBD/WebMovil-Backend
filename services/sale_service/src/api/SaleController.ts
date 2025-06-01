@@ -30,7 +30,11 @@ export default class SaleController {
 
 		this.saleService
 			.registerSale(newSale.user_email, newSale.store_id, newSale.products)
-			.then(sale => res.status(201).json(sale))
+			.then(sale => {
+				const io = req.app.get('io')
+				io.emit('new-sale', sale)
+				res.status(201).json(sale)
+			})
 			.catch(error =>
 				res.status(500).json({
 					error: 'Error al registrar la venta',
