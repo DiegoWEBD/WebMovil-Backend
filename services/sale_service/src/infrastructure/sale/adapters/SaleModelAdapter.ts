@@ -5,6 +5,7 @@ export default class SaleModelAdapter extends SaleModel {
 	constructor(sale: Sale) {
 		super({
 			user_email: sale.getUserEmail(),
+			user_name: sale.getUserName(),
 			store_id: sale.getStoreId(),
 			total: sale.getTotal(),
 			date: sale.getDate(),

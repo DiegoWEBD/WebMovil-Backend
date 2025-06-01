@@ -17,7 +17,9 @@ export default class RegisterSale {
 		products: NewSaleProductJSON[]
 	): Promise<Sale> {
 		// validate user
-		await serviceClient.get(`${process.env.USER_SERVICE_URL}/${user_email}`)
+		const userResponse = await serviceClient.get(
+			`${process.env.USER_SERVICE_URL}/${user_email}`
+		)
 
 		// validate store
 		await serviceClient.get(`${process.env.STORE_SERVICE_URL}/${store_id}`)
@@ -52,6 +54,7 @@ export default class RegisterSale {
 		const sale = new Sale(
 			undefined,
 			user_email,
+			userResponse.data.full_name,
 			store_id,
 			total,
 			new Date(),

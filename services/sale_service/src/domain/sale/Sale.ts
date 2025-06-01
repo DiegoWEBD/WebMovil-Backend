@@ -3,6 +3,7 @@ import SaleDetail from '../sale_detail/SaleDetail'
 export default class Sale {
 	private code: string | undefined
 	private userEmail: string
+	private userName: string
 	private storeId: string
 	private total: number
 	private date: Date
@@ -12,6 +13,7 @@ export default class Sale {
 	constructor(
 		code: string | undefined,
 		userEmail: string,
+		userName: string,
 		storeId: string,
 		total: number,
 		date: Date,
@@ -20,6 +22,7 @@ export default class Sale {
 	) {
 		this.code = code
 		this.userEmail = userEmail
+		this.userName = userName
 		this.storeId = storeId
 		this.total = total
 		this.date = date
@@ -37,6 +40,10 @@ export default class Sale {
 
 	getUserEmail(): string {
 		return this.userEmail
+	}
+
+	getUserName(): string {
+		return this.userName
 	}
 
 	getStoreId(): string {

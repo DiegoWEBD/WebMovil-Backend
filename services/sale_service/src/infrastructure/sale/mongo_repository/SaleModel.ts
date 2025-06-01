@@ -4,6 +4,7 @@ import SaleDetailSchema, { ISaleDetail } from './SaleDetailSchema'
 export interface ISale extends Document {
 	_id: { type: Schema.Types.ObjectId; auto: true }
 	user_email: string
+	user_name: string
 	store_id: string
 	total: number
 	date: Date
@@ -13,6 +14,7 @@ export interface ISale extends Document {
 
 const SaleSchema = new Schema<ISale>({
 	user_email: { type: String, required: true },
+	user_name: { type: String, required: true },
 	store_id: { type: String, required: true },
 	total: { type: Number, required: true },
 	date: { type: Date, required: true },

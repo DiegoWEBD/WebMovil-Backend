@@ -7,6 +7,7 @@ export default class ISaleAdapter extends Sale {
 		super(
 			saleI._id.toString(),
 			saleI.user_email,
+			saleI.user_name,
 			saleI.store_id,
 			saleI.total,
 			saleI.date,
