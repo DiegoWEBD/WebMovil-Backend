@@ -10,6 +10,21 @@ export default class SaleController {
 
 		this.getSales = this.getSales.bind(this)
 		this.registerSale = this.registerSale.bind(this)
+		this.getSale = this.getSale.bind(this)
+	}
+
+	getSale(req: Request, res: Response): void {
+		const saleCode = req.params.code as string
+
+		this.saleService
+			.getSale(saleCode)
+			.then(sale => res.status(200).json(sale))
+			.catch(error => {
+				res.status(404).json({
+					error: 'Venta no encontrada',
+					details: error.message,
+				})
+			})
 	}
 
 	getSales(req: Request, res: Response): void {

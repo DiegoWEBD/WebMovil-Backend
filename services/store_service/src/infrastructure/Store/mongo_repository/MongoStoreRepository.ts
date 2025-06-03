@@ -16,7 +16,7 @@ export default class MongoStoreRepository implements StoreRepository {
 			)
 			.then(async () => {
 				console.log('Base de datos de StoreService conectada')
-				await loadFakeStores()
+				//await loadFakeStores()
 			})
 			.catch(err =>
 				console.error(
