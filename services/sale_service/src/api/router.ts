@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import MongoSaleRepository from '../infrastructure/sale/mongo_repository/MongoSaleRepository'
+import MongoSaleRepository from '../infrastructure/Sale/mongo_repository/MongoSaleRepository'
 import SaleService from '../application/SaleService'
 import SaleController from './SaleController'
 
@@ -11,5 +11,6 @@ const router = Router()
 router.get('/', saleController.getSales)
 router.get('/:code', saleController.getSale)
 router.post('/', saleController.registerSale)
+router.post('/:code/dispatch', saleController.createDispatchOrder)
 
 export default router

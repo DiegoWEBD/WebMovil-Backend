@@ -1,12 +1,15 @@
 import NewSaleProductJSON from '../api/types/sale/NewSaleProductJSON'
-import Sale from '../domain/sale/Sale'
+import Sale from '../domain/Sale/Sale'
+import { SaleSummary } from './types/SaleSummary'
 
 export default interface ISaleService {
 	getSale(code: string): Promise<Sale>
-	getSales(storeId: string | undefined): Promise<Sale[]>
+	getSales(storeId: string | undefined): Promise<SaleSummary[]>
 	registerSale(
 		user_email: string,
 		store_id: string,
-		products: NewSaleProductJSON[]
+		products: NewSaleProductJSON[],
+		dispatchMethod: 'delivery' | 'pickup'
 	): Promise<Sale>
+	createDispatchOrder(saleCode: string): Promise<Sale>
 }

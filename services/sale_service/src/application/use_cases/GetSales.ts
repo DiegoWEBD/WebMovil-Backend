@@ -1,6 +1,8 @@
 import serviceClient from '../../api/axios/service_client'
-import Sale from '../../domain/sale/Sale'
-import SaleRepository from '../../domain/sale/SaleRepository.interface'
+import DeliveryOrder from '../../domain/DispatchOrder/DeliveryOrder'
+import PickupOrder from '../../domain/DispatchOrder/PickupOrder'
+import SaleRepository from '../../domain/Sale/SaleRepository.interface'
+import { SaleSummary } from '../types/SaleSummary'
 
 export default class GetSales {
 	private saleRepository: SaleRepository
@@ -9,12 +11,38 @@ export default class GetSales {
 		this.saleRepository = saleRepository
 	}
 
-	async execute(storeId: string | undefined): Promise<Sale[]> {
+	async execute(storeId: string | undefined): Promise<SaleSummary[]> {
 		if (storeId) {
 			// validate store
 			await serviceClient.get(`${process.env.STORE_SERVICE_URL}/${storeId}`)
 		}
 
-		return await this.saleRepository.find(storeId)
+		const sales = await this.saleRepository.find(storeId)
+		return sales.map(sale => {
+			let status = 'Pendiente'
+			const dispatch = sale.getDispatch()
+
+			if (dispatch) {
+				status = 'Completada'
+			} else {
+				const dispatchOrder = sale.getDispatchOrder()
+
+				if (dispatchOrder instanceof DeliveryOrder) {
+					status = 'En camino'
+				} else if (dispatchOrder instanceof PickupOrder) {
+					status = 'Lista para retiro'
+				}
+			}
+
+			return {
+				code: sale.getCode() as string,
+				userName: sale.getUserName(),
+				storeId: sale.getStoreId(),
+				total: sale.getTotal(),
+				date: sale.getDate(),
+				dispatchMethod: sale.getDispatchMethod(),
+				status,
+			}
+		})
 	}
 }

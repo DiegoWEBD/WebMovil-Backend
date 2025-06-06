@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 
 export interface ISaleDetail {
 	product_code: string

@@ -1,9 +1,11 @@
 import mongoose from 'mongoose'
-import Sale from '../../../domain/sale/Sale'
-import SaleRepository from '../../../domain/sale/SaleRepository.interface'
+import Sale from '../../../domain/Sale/Sale'
+import SaleRepository from '../../../domain/Sale/SaleRepository.interface'
 import SaleModelAdapter from '../adapters/SaleModelAdapter'
 import SaleModel from './SaleModel'
 import ISaleAdapter from '../adapters/ISaleAdapter'
+import DeliveryOrder from '../../../domain/DispatchOrder/DeliveryOrder'
+import DeliveryOrderModel from '../../DispatchOrder/DeliveryOrderModel'
 
 export default class MongoSaleRepository implements SaleRepository {
 	constructor() {
@@ -36,5 +38,13 @@ export default class MongoSaleRepository implements SaleRepository {
 		const newSale = new SaleModelAdapter(sale)
 		await newSale.save()
 		sale.setCode(newSale._id.toString())
+	}
+
+	async updateSale(code: string, values: Sale): Promise<void> {
+		const sale = await SaleModel.findById(code)
+		if (!sale) return
+
+		sale.set(new SaleModelAdapter(values))
+		await sale.save()
 	}
 }

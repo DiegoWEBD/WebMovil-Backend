@@ -1,5 +1,5 @@
-import Sale from '../../domain/sale/Sale'
-import SaleRepository from '../../domain/sale/SaleRepository.interface'
+import Sale from '../../domain/Sale/Sale'
+import SaleRepository from '../../domain/Sale/SaleRepository.interface'
 
 export default class GetSale {
 	private saleRepository: SaleRepository

@@ -11,6 +11,7 @@ export default class SaleController {
 		this.getSales = this.getSales.bind(this)
 		this.registerSale = this.registerSale.bind(this)
 		this.getSale = this.getSale.bind(this)
+		this.createDispatchOrder = this.createDispatchOrder.bind(this)
 	}
 
 	getSale(req: Request, res: Response): void {
@@ -44,10 +45,29 @@ export default class SaleController {
 		const newSale = req.body as NewSaleJSON
 
 		this.saleService
-			.registerSale(newSale.user_email, newSale.store_id, newSale.products)
+			.registerSale(
+				newSale.user_email,
+				newSale.store_id,
+				newSale.products,
+				newSale.dispatch_method
+			)
 			.then(sale => {
 				const io = req.app.get('io')
 				io.emit('new-sale', sale)
+				res.status(201).json(sale)
+			})
+			.catch(error =>
+				res.status(500).json({
+					error: 'Error al registrar la venta',
+					details: error.message,
+				})
+			)
+	}
+
+	createDispatchOrder(req: Request, res: Response): void {
+		this.saleService
+			.createDispatchOrder(req.params.code)
+			.then(sale => {
 				res.status(201).json(sale)
 			})
 			.catch(error =>

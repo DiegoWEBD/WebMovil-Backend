@@ -1,9 +1,14 @@
-import Sale from '../../../domain/sale/Sale'
-import SaleDetail from '../../../domain/sale_detail/SaleDetail'
+import Dispatch from '../../../domain/Dispatch/Dispatch'
+import Sale from '../../../domain/Sale/Sale'
+import SaleDetail from '../../../domain/SaleDetail/SaleDetail'
 import { ISale } from '../mongo_repository/SaleModel'
 
 export default class ISaleAdapter extends Sale {
 	constructor(saleI: ISale) {
+		const dispatch = saleI.dispatch
+			? new Dispatch(saleI.dispatch.code, saleI.dispatch.date)
+			: undefined
+
 		super(
 			saleI._id.toString(),
 			saleI.user_email,
@@ -11,6 +16,7 @@ export default class ISaleAdapter extends Sale {
 			saleI.store_id,
 			saleI.total,
 			saleI.date,
+			saleI.feedback_id,
 			saleI.details.map(
 				detail =>
 					new SaleDetail(
@@ -20,7 +26,9 @@ export default class ISaleAdapter extends Sale {
 						detail.unit_price
 					)
 			),
-			saleI.feedback_id
+			saleI.dispatch_method,
+			undefined,
+			dispatch
 		)
 	}
 }

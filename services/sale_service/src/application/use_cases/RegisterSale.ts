@@ -1,8 +1,8 @@
 import serviceClient from '../../api/axios/service_client'
 import NewSaleProductJSON from '../../api/types/sale/NewSaleProductJSON'
-import Sale from '../../domain/sale/Sale'
-import SaleRepository from '../../domain/sale/SaleRepository.interface'
-import SaleDetail from '../../domain/sale_detail/SaleDetail'
+import Sale from '../../domain/Sale/Sale'
+import SaleRepository from '../../domain/Sale/SaleRepository.interface'
+import SaleDetail from '../../domain/SaleDetail/SaleDetail'
 
 export default class RegisterSale {
 	private saleRepository: SaleRepository
@@ -14,7 +14,8 @@ export default class RegisterSale {
 	async execute(
 		user_email: string,
 		store_id: string,
-		products: NewSaleProductJSON[]
+		products: NewSaleProductJSON[],
+		dispatchMethod: 'delivery' | 'pickup'
 	): Promise<Sale> {
 		// validate user
 		const userResponse = await serviceClient.get(
@@ -58,7 +59,10 @@ export default class RegisterSale {
 			store_id,
 			total,
 			new Date(),
+			undefined,
 			saleDetails,
+			dispatchMethod,
+			undefined,
 			undefined
 		)
 		await this.saleRepository.add(sale)

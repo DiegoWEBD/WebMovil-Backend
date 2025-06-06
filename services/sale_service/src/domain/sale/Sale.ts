@@ -1,4 +1,6 @@
-import SaleDetail from '../sale_detail/SaleDetail'
+import Dispatch from '../Dispatch/Dispatch'
+import DispatchOrder from '../DispatchOrder/DispatchOrder'
+import SaleDetail from '../SaleDetail/SaleDetail'
 
 export default class Sale {
 	private code: string | undefined
@@ -7,8 +9,11 @@ export default class Sale {
 	private storeId: string
 	private total: number
 	private date: Date
-	private details: SaleDetail[]
 	private feedbackId: string | undefined
+	private details: SaleDetail[]
+	private dispatchMethod: 'delivery' | 'pickup'
+	private dispatchOrder: DispatchOrder | undefined
+	private dispatch: Dispatch | undefined
 
 	constructor(
 		code: string | undefined,
@@ -17,8 +22,11 @@ export default class Sale {
 		storeId: string,
 		total: number,
 		date: Date,
+		feedbackId: string | undefined,
 		details: SaleDetail[],
-		feedbackId: string | undefined
+		dispatchMethod: 'delivery' | 'pickup',
+		dispatchOrder: DispatchOrder | undefined,
+		dispatch: Dispatch | undefined
 	) {
 		this.code = code
 		this.userEmail = userEmail
@@ -28,6 +36,9 @@ export default class Sale {
 		this.date = date
 		this.details = details
 		this.feedbackId = feedbackId
+		this.dispatchOrder = dispatchOrder
+		this.dispatch = dispatch
+		this.dispatchMethod = dispatchMethod
 	}
 
 	getCode(): string | undefined {
@@ -62,7 +73,23 @@ export default class Sale {
 		return this.details
 	}
 
+	getDispatchMethod(): 'delivery' | 'pickup' {
+		return this.dispatchMethod
+	}
+
 	getFeedbackId(): string | undefined {
 		return this.feedbackId
+	}
+
+	getDispatchOrder(): DispatchOrder | undefined {
+		return this.dispatchOrder
+	}
+
+	setDispatchOrder(dispatchOrder: DispatchOrder): void {
+		this.dispatchOrder = dispatchOrder
+	}
+
+	getDispatch(): Dispatch | undefined {
+		return this.dispatch
 	}
 }

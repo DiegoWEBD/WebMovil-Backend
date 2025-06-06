@@ -29,8 +29,8 @@ services:
     depends_on:
       - mongodb
 
-  shipping-service:
-    build: ./services/shipping_service
+  delivery-service:
+    build: ./services/delivery_service
     ports:
       - '3002:3002'
     depends_on:
@@ -82,7 +82,7 @@ services:
       - token-service
       - auth-service
       - user-service
-      - shipping-service
+      - delivery-service
       - stock-service
       - store-service
       - owner-service
