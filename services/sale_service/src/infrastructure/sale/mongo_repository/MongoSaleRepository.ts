@@ -1,11 +1,9 @@
 import mongoose from 'mongoose'
 import Sale from '../../../domain/Sale/Sale'
-import SaleRepository from '../../../domain/Sale/SaleRepository.interface'
+import ISaleAdapter from '../adapters/ISaleAdapter'
 import SaleModelAdapter from '../adapters/SaleModelAdapter'
 import SaleModel from './SaleModel'
-import ISaleAdapter from '../adapters/ISaleAdapter'
-import DeliveryOrder from '../../../domain/DispatchOrder/DeliveryOrder'
-import DeliveryOrderModel from '../../DispatchOrder/DeliveryOrderModel'
+import SaleRepository from '../../../domain/Sale/SaleRepository.interface'
 
 export default class MongoSaleRepository implements SaleRepository {
 	constructor() {
