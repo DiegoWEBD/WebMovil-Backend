@@ -1,5 +1,5 @@
 import Dispatch from '../../../domain/Dispatch/Dispatch'
-import Sale from '../../../domain/Sale/Sale'
+import Sale from '../../../domain/temp_name/Sale'
 import SaleDetail from '../../../domain/SaleDetail/SaleDetail'
 import { ISale } from '../mongo_repository/SaleModel'
 

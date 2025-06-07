@@ -1,6 +1,6 @@
 import DeliveryOrder from '../../domain/DispatchOrder/DeliveryOrder'
-import Sale from '../../domain/Sale/Sale'
-import SaleRepository from '../../domain/Sale/SaleRepository.interface'
+import Sale from '../../domain/temp_name/Sale'
+import SaleRepository from '../../domain/temp_name/SaleRepository.interface'
 
 export default class CreateDispatchOrder {
 	private saleRepository: SaleRepository

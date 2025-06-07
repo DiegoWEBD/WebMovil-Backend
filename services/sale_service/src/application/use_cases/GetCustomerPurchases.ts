@@ -1,4 +1,4 @@
-import SaleRepository from '../../domain/Sale/SaleRepository.interface'
+import SaleRepository from '../../domain/temp_name/SaleRepository.interface'
 import { SaleSummary } from '../types/SaleSummary'
 
 export default class GetCustomerPurchases {

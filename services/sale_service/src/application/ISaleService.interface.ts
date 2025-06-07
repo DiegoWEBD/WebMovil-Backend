@@ -1,5 +1,5 @@
 import NewSaleProductJSON from '../api/types/sale/NewSaleProductJSON'
-import Sale from '../domain/Sale/Sale'
+import Sale from '../domain/temp_name/Sale'
 import { SaleSummary } from './types/SaleSummary'
 
 export default interface ISaleService {
