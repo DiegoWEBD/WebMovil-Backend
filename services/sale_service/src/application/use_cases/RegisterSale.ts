@@ -1,7 +1,7 @@
 import serviceClient from '../../api/axios/service_client'
 import NewSaleProductJSON from '../../api/types/sale/NewSaleProductJSON'
-import Sale from '../../domain/temp_name/Sale'
-import SaleRepository from '../../domain/temp_name/SaleRepository.interface'
+import Sale from '../../domain/Sale/Sale'
+import SaleRepository from '../../domain/Sale/SaleRepository.interface'
 import SaleDetail from '../../domain/SaleDetail/SaleDetail'
 
 export default class RegisterSale {

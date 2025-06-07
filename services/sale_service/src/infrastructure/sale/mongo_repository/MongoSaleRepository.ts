@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
-import Sale from '../../../domain/temp_name/Sale'
+import Sale from '../../../domain/Sale/Sale'
 import ISaleAdapter from '../adapters/ISaleAdapter'
 import SaleModelAdapter from '../adapters/SaleModelAdapter'
 import SaleModel from './SaleModel'
-import SaleRepository from '../../../domain/temp_name/SaleRepository.interface'
+import SaleRepository from '../../../domain/Sale/SaleRepository.interface'
 
 export default class MongoSaleRepository implements SaleRepository {
 	constructor() {

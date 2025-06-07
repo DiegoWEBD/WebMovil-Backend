@@ -1,4 +1,4 @@
-import Sale from '../../../domain/temp_name/Sale'
+import Sale from '../../../domain/Sale/Sale'
 import { IDispatch } from '../../Dispatch/DispatchSchema'
 import SaleModel from '../mongo_repository/SaleModel'
 

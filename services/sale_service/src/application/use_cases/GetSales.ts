@@ -1,7 +1,7 @@
 import serviceClient from '../../api/axios/service_client'
 import DeliveryOrder from '../../domain/DispatchOrder/DeliveryOrder'
 import PickupOrder from '../../domain/DispatchOrder/PickupOrder'
-import SaleRepository from '../../domain/temp_name/SaleRepository.interface'
+import SaleRepository from '../../domain/Sale/SaleRepository.interface'
 import { SaleSummary } from '../types/SaleSummary'
 
 export default class GetSales {

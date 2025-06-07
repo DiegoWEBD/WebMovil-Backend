@@ -1,6 +1,6 @@
 import NewSaleProductJSON from '../api/types/sale/NewSaleProductJSON'
-import Sale from '../domain/temp_name/Sale'
-import SaleRepository from '../domain/temp_name/SaleRepository.interface'
+import Sale from '../domain/Sale/Sale'
+import SaleRepository from '../domain/Sale/SaleRepository.interface'
 import ISaleService from './ISaleService.interface'
 import { SaleSummary } from './types/SaleSummary'
 import CreateDispatchOrder from './use_cases/CreateDispatchOrder'
