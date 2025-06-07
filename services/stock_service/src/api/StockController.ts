@@ -55,26 +55,29 @@ export default class StockController {
 	}
 
 	registerProduct(req: Request, res: Response): void {
-		if (Array.isArray(req.body)) {
-			this.registerProducts(req, res)
-			return
-		}
-
-		const { code, name, description, price, store_id, picture, stock } =
-			req.body
+		const {
+			code,
+			name,
+			description,
+			price,
+			store_id,
+			store_name,
+			picture,
+			stock,
+		} = req.body
 
 		this.stockService
-			.registerProduct(code, name, description, price, store_id, picture, stock)
+			.registerProduct(
+				code,
+				name,
+				description,
+				price,
+				store_id,
+				store_name,
+				picture,
+				stock
+			)
 			.then(product => res.status(201).json(product))
-			.catch(error => res.status(500).json({ error: error.message }))
-	}
-
-	registerProducts(req: Request, res: Response): void {
-		const products = req.body
-
-		this.stockService
-			.registerProducts(products)
-			.then(registeredProducts => res.status(201).json(registeredProducts))
 			.catch(error => res.status(500).json({ error: error.message }))
 	}
 }

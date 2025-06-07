@@ -9,6 +9,7 @@ export interface ISale extends Document {
 	user_email: string
 	user_name: string
 	store_id: string
+	store_name: string
 	total: number
 	date: Date
 	feedback_id: string | undefined
@@ -22,6 +23,7 @@ const SaleSchema = new Schema<ISale>({
 	user_email: { type: String, required: true },
 	user_name: { type: String, required: true },
 	store_id: { type: String, required: true },
+	store_name: { type: String, required: true },
 	total: { type: Number, required: true },
 	date: { type: Date, required: true },
 	feedback_id: { type: String, required: false },

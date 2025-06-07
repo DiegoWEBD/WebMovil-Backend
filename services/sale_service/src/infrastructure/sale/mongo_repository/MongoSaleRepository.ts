@@ -20,10 +20,14 @@ export default class MongoSaleRepository implements SaleRepository {
 			)
 	}
 
-	async find(storeId: string | undefined): Promise<Sale[]> {
-		const sales = storeId
-			? await SaleModel.find({ store_id: storeId })
-			: await SaleModel.find()
+	async find(
+		storeId: string | undefined,
+		userEmail: string | undefined
+	): Promise<Sale[]> {
+		const sales = await SaleModel.find({
+			store_id: storeId ? storeId : { $exists: true },
+			user_email: userEmail ? userEmail : { $exists: true },
+		})
 		return sales.map(sale => new ISaleAdapter(sale))
 	}
 

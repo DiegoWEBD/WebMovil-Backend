@@ -4,6 +4,7 @@ export default class Product {
 	private description: string
 	private price: number
 	private store_id: string
+	private store_name: string
 	private picture: string
 	private stock: string
 
@@ -13,6 +14,7 @@ export default class Product {
 		description: string,
 		price: number,
 		store_id: string,
+		store_name: string,
 		picture: string,
 		stock: string
 	) {
@@ -21,6 +23,7 @@ export default class Product {
 		this.price = price
 		this.description = description
 		this.store_id = store_id
+		this.store_name = store_name
 		this.picture = picture
 		this.stock = stock
 	}
@@ -43,6 +46,10 @@ export default class Product {
 
 	public getStoreId(): string {
 		return this.store_id
+	}
+
+	public getStoreName(): string {
+		return this.store_name
 	}
 
 	public getPicture(): string {

@@ -9,6 +9,7 @@ export default class ProductModelAdapter extends ProductModel {
 			description: product.getDescription(),
 			price: product.getPrice(),
 			store_id: product.getStoreId(),
+			store_name: product.getStoreName(),
 			picture: product.getPicture(),
 			stock: product.getStock(),
 		})

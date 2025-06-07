@@ -23,7 +23,9 @@ export default class RegisterSale {
 		)
 
 		// validate store
-		await serviceClient.get(`${process.env.STORE_SERVICE_URL}/${store_id}`)
+		const { data: store } = await serviceClient.get(
+			`${process.env.STORE_SERVICE_URL}/${store_id}`
+		)
 
 		// process products
 		let total = 0
@@ -57,6 +59,7 @@ export default class RegisterSale {
 			user_email,
 			userResponse.data.full_name,
 			store_id,
+			store.name,
 			total,
 			new Date(),
 			undefined,

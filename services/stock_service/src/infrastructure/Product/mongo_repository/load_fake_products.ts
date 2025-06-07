@@ -103,12 +103,12 @@ export const loadFakeProducts = async () => {
 	try {
 		const response = await serviceClient.get(`${process.env.STORE_SERVICE_URL}`)
 
-		const storeIds = response.data.stores.map((store: any) => store.id)
+		const stores = response.data.stores
 		await ProductModel.deleteMany({}) // Clean before inserting
 
 		const productsToInsert = []
 
-		for (const storeId of storeIds) {
+		for (const store of stores) {
 			const numProducts = getRandomInt(18, 28)
 
 			for (let i = 0; i < numProducts; i++) {
@@ -119,8 +119,9 @@ export const loadFakeProducts = async () => {
 					code: generateRandomCode(),
 					name: template.name,
 					description: template.description,
-					price: parseFloat(getRandomInt(1000, 20000).toFixed(2)),
-					store_id: storeId,
+					price: template.price,
+					store_id: store.id,
+					store_name: store.name,
 					picture: '',
 					stock: getRandomInt(5, 50).toString(),
 				}

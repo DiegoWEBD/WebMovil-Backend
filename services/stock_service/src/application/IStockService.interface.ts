@@ -17,10 +17,11 @@ export default interface IStockService {
 		description: string,
 		price: number,
 		storeId: string,
+		storeName: string,
 		picture: string,
 		stock: string
 	): Promise<Product>
-	registerProducts(products: any[]): Promise<Product[]>
+
 	countProducts(
 		storeId: string | undefined,
 		productName: string | undefined

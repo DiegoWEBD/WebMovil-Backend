@@ -30,8 +30,10 @@ export default class SaleController {
 
 	getSales(req: Request, res: Response): void {
 		const storeId = req.query.store_id as string | undefined
+		const userEmail = req.query.user_email as string | undefined
+
 		this.saleService
-			.getSales(storeId)
+			.getSales(storeId, userEmail)
 			.then(sales => res.status(200).json(sales))
 			.catch(error => {
 				res.status(500).json({

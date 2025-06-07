@@ -14,6 +14,7 @@ export default class RegisterProduct {
 		description: string,
 		price: number,
 		storeId: string,
+		storeName: string,
 		picture: string,
 		stock: string
 	): Promise<Product> {
@@ -23,6 +24,7 @@ export default class RegisterProduct {
 			description,
 			price,
 			storeId,
+			storeName,
 			picture,
 			stock
 		)

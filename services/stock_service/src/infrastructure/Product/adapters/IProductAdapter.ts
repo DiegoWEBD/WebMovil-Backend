@@ -9,6 +9,7 @@ export default class IProductAdapter extends Product {
 			productI.description,
 			productI.price,
 			productI.store_id,
+			productI.store_name,
 			productI.picture,
 			productI.stock
 		)

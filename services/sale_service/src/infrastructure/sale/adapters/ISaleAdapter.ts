@@ -14,6 +14,7 @@ export default class ISaleAdapter extends Sale {
 			saleI.user_email,
 			saleI.user_name,
 			saleI.store_id,
+			saleI.store_name,
 			saleI.total,
 			saleI.date,
 			saleI.feedback_id,

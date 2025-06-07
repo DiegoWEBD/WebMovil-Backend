@@ -17,6 +17,7 @@ export default class SaleModelAdapter extends SaleModel {
 			user_email: sale.getUserEmail(),
 			user_name: sale.getUserName(),
 			store_id: sale.getStoreId(),
+			store_name: sale.getStoreName(),
 			total: sale.getTotal(),
 			date: sale.getDate(),
 			feedback_id: sale.getFeedbackId(),

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import MongoSaleRepository from '../infrastructure/Sale/mongo_repository/MongoSaleRepository'
 import SaleService from '../application/SaleService'
+import MongoSaleRepository from '../infrastructure/Sale/mongo_repository/MongoSaleRepository'
 import SaleController from './SaleController'
 
 const saleRepository = new MongoSaleRepository()

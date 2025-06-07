@@ -7,6 +7,7 @@ export default class Sale {
 	private userEmail: string
 	private userName: string
 	private storeId: string
+	private storeName: string
 	private total: number
 	private date: Date
 	private feedbackId: string | undefined
@@ -20,6 +21,7 @@ export default class Sale {
 		userEmail: string,
 		userName: string,
 		storeId: string,
+		storeName: string,
 		total: number,
 		date: Date,
 		feedbackId: string | undefined,
@@ -32,6 +34,7 @@ export default class Sale {
 		this.userEmail = userEmail
 		this.userName = userName
 		this.storeId = storeId
+		this.storeName = storeName
 		this.total = total
 		this.date = date
 		this.details = details
@@ -59,6 +62,10 @@ export default class Sale {
 
 	getStoreId(): string {
 		return this.storeId
+	}
+
+	getStoreName(): string {
+		return this.storeName
 	}
 
 	getTotal(): number {

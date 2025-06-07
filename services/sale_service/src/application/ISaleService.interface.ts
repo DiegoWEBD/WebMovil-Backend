@@ -4,7 +4,10 @@ import { SaleSummary } from './types/SaleSummary'
 
 export default interface ISaleService {
 	getSale(code: string): Promise<Sale>
-	getSales(storeId: string | undefined): Promise<SaleSummary[]>
+	getSales(
+		storeId: string | undefined,
+		userEmail: string | undefined
+	): Promise<SaleSummary[]>
 	registerSale(
 		user_email: string,
 		store_id: string,
@@ -12,4 +15,5 @@ export default interface ISaleService {
 		dispatchMethod: 'delivery' | 'pickup'
 	): Promise<Sale>
 	createDispatchOrder(saleCode: string): Promise<Sale>
+	getCustomerPurchases(userEmail: string): Promise<SaleSummary[]>
 }

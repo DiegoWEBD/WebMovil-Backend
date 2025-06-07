@@ -21,10 +21,11 @@ export default class GetStores {
 
 		for (const store of stores) {
 			const { data } = await serviceClient.get(
-				`/stock-service:3003?store_id=${store.getId()}`
+				`/stock-service:3003?store_id=${store.getId()}&limit=10000`
 			)
+
 			const storeSummary = new StoreSummaryAdapter(store)
-			storeSummary.setProductsCount(data.length)
+			storeSummary.setProductsCount(data.products.length)
 			storeSummary.setFeedbackRating(4.5)
 			storeSummaries.push(storeSummary)
 		}
