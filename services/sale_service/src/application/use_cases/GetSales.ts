@@ -44,7 +44,7 @@ export default class GetSales {
 				storeName: sale.getStoreName(),
 				total: sale.getTotal(),
 				date: sale.getDate(),
-				dispatchMethod: sale.getDispatchMethod(),
+				dispatchMethod: sale.getDispatchMethod()?.type as string,
 				status,
 			}
 		})

@@ -1,3 +1,5 @@
+import DeliveryDataJSON from '../api/types/DispatchMethod/DeliveryDataJSON'
+import PickupDataJSON from '../api/types/DispatchMethod/PickupDataJSON'
 import NewSaleProductJSON from '../api/types/sale/NewSaleProductJSON'
 import Sale from '../domain/Sale/Sale'
 import { SaleSummary } from './types/SaleSummary'
@@ -12,7 +14,7 @@ export default interface ISaleService {
 		user_email: string,
 		store_id: string,
 		products: NewSaleProductJSON[],
-		dispatchMethod: 'delivery' | 'pickup'
+		dispatchMethod: DeliveryDataJSON | PickupDataJSON
 	): Promise<Sale>
 	createDispatchOrder(saleCode: string): Promise<Sale>
 	getCustomerPurchases(userEmail: string): Promise<SaleSummary[]>

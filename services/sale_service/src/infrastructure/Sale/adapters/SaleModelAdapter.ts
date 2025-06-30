@@ -8,7 +8,6 @@ export default class SaleModelAdapter extends SaleModel {
 
 		const dispatch: IDispatch | undefined = saleDispatch
 			? {
-					code: saleDispatch.getCode(),
 					date: saleDispatch.getDate(),
 			  }
 			: undefined
@@ -27,9 +26,9 @@ export default class SaleModelAdapter extends SaleModel {
 				quantity: detail.getQuantity(),
 				unit_price: detail.getUnitPrice(),
 			})),
-			dispatch_method: sale.getDispatchMethod(),
-			dispatch_order_code: sale.getDispatchOrder()?.getCode(),
-			dispatch: dispatch,
+			dispatch_method_id: sale.getDispatchMethod()?.id,
+			dispatch_order_id: sale.getDispatchOrder()?.getCode(),
+			dispatch,
 		})
 	}
 }

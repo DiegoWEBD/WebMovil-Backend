@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose'
 const { Mixed } = Schema.Types
 
-import { IDispatch } from '../../Dispatch/DispatchSchema'
+import DispatchSchema, { IDispatch } from '../../Dispatch/DispatchSchema'
 import SaleDetailSchema, { ISaleDetail } from './SaleDetailSchema'
 
 export interface ISale extends Document {
@@ -14,8 +14,8 @@ export interface ISale extends Document {
 	date: Date
 	feedback_id: string | undefined
 	details: ISaleDetail[]
-	dispatch_method: 'delivery' | 'pickup'
-	dispatch_order_code: string | undefined
+	dispatch_method_id: string
+	dispatch_order_id: string | undefined
 	dispatch: IDispatch | undefined
 }
 
@@ -28,19 +28,17 @@ const SaleSchema = new Schema<ISale>({
 	date: { type: Date, required: true },
 	feedback_id: { type: String, required: false },
 	details: { type: [SaleDetailSchema], required: true },
-	dispatch_method: {
+	dispatch_method_id: {
 		type: String,
-		enum: ['delivery', 'pickup'],
 		required: true,
 	},
-
-	dispatch_order_code: {
+	dispatch_order_id: {
 		type: String,
 		required: false,
 		default: null,
 	},
 	dispatch: {
-		type: Mixed,
+		type: DispatchSchema,
 		required: false,
 		default: null,
 	},

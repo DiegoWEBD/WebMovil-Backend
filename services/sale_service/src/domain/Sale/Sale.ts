@@ -1,4 +1,5 @@
 import Dispatch from '../Dispatch/Dispatch'
+import DispatchMethod from '../DispatchMethod/DispatchMethod'
 import DispatchOrder from '../DispatchOrder/DispatchOrder'
 import SaleDetail from '../SaleDetail/SaleDetail'
 
@@ -12,7 +13,7 @@ export default class Sale {
 	private date: Date
 	private feedbackId: string | undefined
 	private details: SaleDetail[]
-	private dispatchMethod: 'delivery' | 'pickup'
+	private dispatchMethod: DispatchMethod | undefined
 	private dispatchOrder: DispatchOrder | undefined
 	private dispatch: Dispatch | undefined
 
@@ -26,7 +27,7 @@ export default class Sale {
 		date: Date,
 		feedbackId: string | undefined,
 		details: SaleDetail[],
-		dispatchMethod: 'delivery' | 'pickup',
+		dispatchMethod: DispatchMethod | undefined,
 		dispatchOrder: DispatchOrder | undefined,
 		dispatch: Dispatch | undefined
 	) {
@@ -80,8 +81,12 @@ export default class Sale {
 		return this.details
 	}
 
-	getDispatchMethod(): 'delivery' | 'pickup' {
+	getDispatchMethod(): DispatchMethod | undefined {
 		return this.dispatchMethod
+	}
+
+	setDispatchMethod(dispatchMethod: DispatchMethod): void {
+		this.dispatchMethod = dispatchMethod
 	}
 
 	getFeedbackId(): string | undefined {

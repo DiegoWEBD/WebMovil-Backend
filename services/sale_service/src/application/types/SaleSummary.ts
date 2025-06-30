@@ -5,6 +5,6 @@ export type SaleSummary = {
 	storeName: string
 	total: number
 	date: Date
-	dispatchMethod: 'delivery' | 'pickup'
+	dispatchMethod: string
 	status: string
 }

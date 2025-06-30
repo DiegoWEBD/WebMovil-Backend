@@ -6,7 +6,7 @@ import { ISale } from '../mongo_repository/SaleModel'
 export default class ISaleAdapter extends Sale {
 	constructor(saleI: ISale) {
 		const dispatch = saleI.dispatch
-			? new Dispatch(saleI.dispatch.code, saleI.dispatch.date)
+			? new Dispatch(saleI.dispatch.date)
 			: undefined
 
 		super(
@@ -27,7 +27,7 @@ export default class ISaleAdapter extends Sale {
 						detail.unit_price
 					)
 			),
-			saleI.dispatch_method,
+			undefined,
 			undefined,
 			dispatch
 		)
