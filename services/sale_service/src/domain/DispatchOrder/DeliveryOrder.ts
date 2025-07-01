@@ -1,28 +1,21 @@
 import DispatchOrder from './DispatchOrder'
 
 export default class DeliveryOrder extends DispatchOrder {
-	private price: number
 	private street: string
 	private number: string
 	private customerInstructions: string | undefined
 
 	constructor(
-		code: string | undefined,
-		issueDate: Date,
-		price: number,
+		id: string | undefined,
 		street: string,
 		number: string,
 		customerInstructions?: string
 	) {
-		super(code, issueDate)
-		this.price = price
+		super(id, 'delivery')
+
 		this.street = street
 		this.number = number
 		this.customerInstructions = customerInstructions
-	}
-
-	getPrice(): number {
-		return this.price
 	}
 
 	getStreet(): string {

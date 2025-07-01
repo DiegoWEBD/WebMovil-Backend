@@ -27,7 +27,7 @@ export default class SaleModelAdapter extends SaleModel {
 				unit_price: detail.getUnitPrice(),
 			})),
 			dispatch_method_id: sale.getDispatchMethod()?.id,
-			dispatch_order_id: sale.getDispatchOrder()?.getCode(),
+			dispatch_order_id: sale.getDispatchOrder()?.getId(),
 			dispatch,
 		})
 	}

@@ -17,5 +17,6 @@ export default interface ISaleService {
 		dispatchMethod: DeliveryDataJSON | PickupDataJSON
 	): Promise<Sale>
 	createDispatchOrder(saleCode: string): Promise<Sale>
+	createDispatch(saleCode: string): Promise<Sale>
 	getCustomerPurchases(userEmail: string): Promise<SaleSummary[]>
 }

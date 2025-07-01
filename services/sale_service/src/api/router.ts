@@ -11,6 +11,7 @@ const router = Router()
 router.get('/', saleController.getSales)
 router.get('/:code', saleController.getSale)
 router.post('/', saleController.registerSale)
-router.post('/:code/dispatch', saleController.createDispatchOrder)
+router.post('/:code/dispatch-order', saleController.createDispatchOrder)
+router.post('/:code/dispatch', saleController.createDispatch)
 
 export default router

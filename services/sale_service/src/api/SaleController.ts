@@ -12,6 +12,7 @@ export default class SaleController {
 		this.registerSale = this.registerSale.bind(this)
 		this.getSale = this.getSale.bind(this)
 		this.createDispatchOrder = this.createDispatchOrder.bind(this)
+		this.createDispatch = this.createDispatch.bind(this)
 	}
 
 	getSale(req: Request, res: Response): void {
@@ -68,13 +69,27 @@ export default class SaleController {
 
 	createDispatchOrder(req: Request, res: Response): void {
 		this.saleService
-			.createDispatchOrder(req.params.code)
+			.createDispatchOrder(req.params.code as string)
 			.then(sale => {
 				res.status(201).json(sale)
 			})
 			.catch(error =>
 				res.status(500).json({
-					error: 'Error al registrar la venta',
+					error: 'Error al crear la orden de entrega',
+					details: error.message,
+				})
+			)
+	}
+
+	createDispatch(req: Request, res: Response): void {
+		this.saleService
+			.createDispatch(req.params.code as string)
+			.then(sale => {
+				res.status(201).json(sale)
+			})
+			.catch(error =>
+				res.status(500).json({
+					error: 'Error al crear el despacho',
 					details: error.message,
 				})
 			)

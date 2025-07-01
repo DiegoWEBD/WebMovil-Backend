@@ -1,25 +1,14 @@
 import DispatchOrder from './DispatchOrder'
 
 export default class PickupOrder extends DispatchOrder {
-	private availableFrom: Date
-	private availableUntil: Date
+	private storeDirection: string
 
-	constructor(
-		code: string,
-		issueDate: Date,
-		availableFrom: Date,
-		availableUntil: Date
-	) {
-		super(code, issueDate)
-		this.availableFrom = availableFrom
-		this.availableUntil = availableUntil
+	constructor(id: string | undefined, storeDirection: string) {
+		super(id, 'pickup')
+		this.storeDirection = storeDirection
 	}
 
-	getAvailableFrom(): Date {
-		return this.availableFrom
-	}
-
-	getAvailableUntil(): Date {
-		return this.availableUntil
+	getStoreDirection(): string {
+		return this.storeDirection
 	}
 }

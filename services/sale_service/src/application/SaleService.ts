@@ -5,6 +5,7 @@ import Sale from '../domain/Sale/Sale'
 import SaleRepository from '../domain/Sale/SaleRepository.interface'
 import ISaleService from './ISaleService.interface'
 import { SaleSummary } from './types/SaleSummary'
+import CreateDispatch from './use_cases/CreateDispatch'
 import CreateDispatchOrder from './use_cases/CreateDispatchOrder'
 import GetCustomerPurchases from './use_cases/GetCustomerPurchases'
 import GetSale from './use_cases/GetSale'
@@ -16,6 +17,7 @@ export default class SaleService implements ISaleService {
 	private _getSales: GetSales
 	private _getSale: GetSale
 	private _createDispatchOrder: CreateDispatchOrder
+	private _createDispatch: CreateDispatch
 	private _getCustomerPurchases: GetCustomerPurchases
 
 	constructor(saleRepository: SaleRepository) {
@@ -23,6 +25,7 @@ export default class SaleService implements ISaleService {
 		this._registerSale = new RegisterSale(saleRepository)
 		this._getSale = new GetSale(saleRepository)
 		this._createDispatchOrder = new CreateDispatchOrder(saleRepository)
+		this._createDispatch = new CreateDispatch(saleRepository)
 		this._getCustomerPurchases = new GetCustomerPurchases(saleRepository)
 	}
 
@@ -53,6 +56,10 @@ export default class SaleService implements ISaleService {
 
 	createDispatchOrder(saleCode: string): Promise<Sale> {
 		return this._createDispatchOrder.execute(saleCode)
+	}
+
+	createDispatch(saleCode: string): Promise<Sale> {
+		return this._createDispatch.execute(saleCode)
 	}
 
 	getCustomerPurchases(userEmail: string): Promise<SaleSummary[]> {

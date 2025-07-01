@@ -104,4 +104,8 @@ export default class Sale {
 	getDispatch(): Dispatch | undefined {
 		return this.dispatch
 	}
+
+	setDispatch(dispatch: Dispatch): void {
+		this.dispatch = dispatch
+	}
 }

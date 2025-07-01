@@ -27,8 +27,8 @@ export default class ISaleAdapter extends Sale {
 						detail.unit_price
 					)
 			),
-			undefined,
-			undefined,
+			undefined, // dispatchMethod will be set by repository
+			undefined, // dispatchOrder will be set by repository
 			dispatch
 		)
 	}
