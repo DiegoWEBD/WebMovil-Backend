@@ -73,6 +73,8 @@ export default class SaleController {
 		this.saleService
 			.createDispatchOrder(req.params.code as string)
 			.then(sale => {
+				const io = req.app.get('io')
+				io.emit('sale-status-changed', sale)
 				res.status(201).json(sale)
 			})
 			.catch(error =>
@@ -87,6 +89,8 @@ export default class SaleController {
 		this.saleService
 			.createDispatch(req.params.code as string)
 			.then(sale => {
+				const io = req.app.get('io')
+				io.emit('sale-status-changed', sale)
 				res.status(201).json(sale)
 			})
 			.catch(error =>
@@ -102,6 +106,8 @@ export default class SaleController {
 		this.saleService
 			.acceptDelivery(req.params.code as string, req.body.delivery_man_email)
 			.then(sale => {
+				const io = req.app.get('io')
+				io.emit('sale-status-changed', sale)
 				res.status(201).json(sale)
 			})
 			.catch(error =>
