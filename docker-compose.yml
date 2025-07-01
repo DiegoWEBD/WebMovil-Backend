@@ -72,6 +72,15 @@ services:
     depends_on:
       - mongodb
 
+  deliveryman-service:
+    build: ./services/deliveryman_service
+    ports:
+      - '3008:3008'
+    env_file:
+      - ./services/deliveryman_service/.env
+    depends_on:
+      - mongodb
+
   api-gateway:
     build: ./api_gateway
     ports:
@@ -87,3 +96,4 @@ services:
       - store-service
       - owner-service
       - sale-service
+      - deliveryman-service

@@ -41,6 +41,13 @@ export default class Register {
 				userInfo.name,
 				profilePicture
 			)
+		} else if (userType === 'delivery-man') {
+			return await this.registerDeliveryMan(
+				userInfo.email,
+				phone,
+				userInfo.name,
+				profilePicture
+			)
 		}
 
 		throw new Error('Tipo de usuario inválido')
@@ -60,6 +67,27 @@ export default class Register {
 		})
 
 		return { email: response.data.email, user_type: 'owner' }
+	}
+
+	private async registerDeliveryMan(
+		email: string,
+		phone: string,
+		fullName: string,
+		profilePicture: string
+	): Promise<BasicUserInfo> {
+		console.log('registerDeliveryMan')
+		const response = await serviceClient.post('/deliveryman-service:3008', {
+			email,
+			phone,
+			full_name: fullName,
+			profile_picture: profilePicture,
+			vehicle_type: 'Motocicleta',
+			vehicle_plate: 'PZDC89',
+		})
+
+		console.log('response', response)
+
+		return { email: response.data.email, user_type: 'delivery-man' }
 	}
 
 	private async registerClient(

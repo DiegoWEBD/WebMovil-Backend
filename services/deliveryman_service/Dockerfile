@@ -15,9 +15,6 @@ COPY . .
 # Build the TypeScript project
 RUN yarn run build
 
-# Copy public folder into dist
-RUN cp -r public dist/public
-
 # Stage 2: Production image
 FROM node:alpine
 
@@ -32,4 +29,4 @@ COPY --from=builder /app/yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 
 # Set the command (adjust the entry point if needed)
-CMD ["yarn", "start"]
+CMD ["yarn", "start"] 
