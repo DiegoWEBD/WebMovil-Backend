@@ -13,6 +13,7 @@ export default class SaleController {
 		this.getSale = this.getSale.bind(this)
 		this.createDispatchOrder = this.createDispatchOrder.bind(this)
 		this.createDispatch = this.createDispatch.bind(this)
+		this.acceptDelivery = this.acceptDelivery.bind(this)
 	}
 
 	getSale(req: Request, res: Response): void {
@@ -32,9 +33,10 @@ export default class SaleController {
 	getSales(req: Request, res: Response): void {
 		const storeId = req.query.store_id as string | undefined
 		const userEmail = req.query.user_email as string | undefined
+		const status = req.query.status as string | undefined
 
 		this.saleService
-			.getSales(storeId, userEmail)
+			.getSales(storeId, userEmail, status)
 			.then(sales => res.status(200).json(sales))
 			.catch(error => {
 				res.status(500).json({
@@ -84,6 +86,21 @@ export default class SaleController {
 	createDispatch(req: Request, res: Response): void {
 		this.saleService
 			.createDispatch(req.params.code as string)
+			.then(sale => {
+				res.status(201).json(sale)
+			})
+			.catch(error =>
+				res.status(500).json({
+					error: 'Error al crear el despacho',
+					details: error.message,
+				})
+			)
+	}
+
+	acceptDelivery(req: Request, res: Response): void {
+		console.log(req.body)
+		this.saleService
+			.acceptDelivery(req.params.code as string, req.body.delivery_man_email)
 			.then(sale => {
 				res.status(201).json(sale)
 			})

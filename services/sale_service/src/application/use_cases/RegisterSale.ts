@@ -87,7 +87,9 @@ export default class RegisterSale {
 			saleDetails,
 			dispatchMethod,
 			undefined,
-			undefined
+			undefined,
+			undefined,
+			'Pendiente'
 		)
 		await this.saleRepository.add(sale)
 		return sale

@@ -3,6 +3,9 @@ const { Mixed } = Schema.Types
 
 import DispatchSchema, { IDispatch } from '../../Dispatch/DispatchSchema'
 import SaleDetailSchema, { ISaleDetail } from './SaleDetailSchema'
+import DeliveryDetailsSchema, {
+	IDeliveryDetails,
+} from '../../DeliveryDetails/DeliveryDetailsSchema'
 
 export interface ISale extends Document {
 	_id: { type: Schema.Types.ObjectId; auto: true }
@@ -17,6 +20,13 @@ export interface ISale extends Document {
 	dispatch_method_id: string
 	dispatch_order_id: string | undefined
 	dispatch: IDispatch | undefined
+	delivery_details: IDeliveryDetails | undefined
+	status:
+		| 'Pendiente'
+		| 'Buscando repartidor'
+		| 'En camino'
+		| 'Lista para retiro'
+		| 'Completada'
 }
 
 const SaleSchema = new Schema<ISale>({
@@ -41,6 +51,16 @@ const SaleSchema = new Schema<ISale>({
 		type: DispatchSchema,
 		required: false,
 		default: null,
+	},
+	delivery_details: {
+		type: DeliveryDetailsSchema,
+		required: false,
+		default: null,
+	},
+	status: {
+		type: String,
+		required: true,
+		default: 'Pendiente',
 	},
 })
 

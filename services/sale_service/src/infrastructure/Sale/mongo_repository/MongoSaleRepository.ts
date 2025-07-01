@@ -38,12 +38,14 @@ export default class MongoSaleRepository implements SaleRepository {
 
 	async find(
 		storeId: string | undefined,
-		userEmail: string | undefined
+		userEmail: string | undefined,
+		status: string | undefined
 	): Promise<Sale[]> {
 		const sales = await SaleModel.find({
 			store_id: storeId ? storeId : { $exists: true },
 			user_email: userEmail ? userEmail : { $exists: true },
-		})
+			status: status ? status : { $exists: true },
+		}).sort({ _id: -1 })
 
 		// Load each sale with its dispatch method and dispatch order
 		const adaptedSales: Sale[] = []
@@ -206,8 +208,6 @@ export default class MongoSaleRepository implements SaleRepository {
 	}
 
 	async updateSale(code: string, values: Sale): Promise<void> {
-		console.log(code)
-		console.log(values)
 		const sale = await SaleModel.findById(code)
 		if (!sale) return
 
@@ -220,11 +220,13 @@ export default class MongoSaleRepository implements SaleRepository {
 					customer_instructions: dispatchOrder.getCustomerInstructions(),
 				})
 				dispatchOrder.setId(deliveryOrderModel._id.toString())
+				sale.set({ status: 'Buscando repartidor' })
 			} else if (dispatchOrder instanceof PickupOrder) {
 				const pickupOrderModel = await PickupOrderModel.create({
 					store_direction: dispatchOrder.getStoreDirection(),
 				})
 				dispatchOrder.setId(pickupOrderModel._id.toString())
+				sale.set({ status: 'Lista para retiro' })
 			}
 			sale.set({
 				dispatch_order_id: dispatchOrder?.getId(),
@@ -236,9 +238,14 @@ export default class MongoSaleRepository implements SaleRepository {
 			sale.dispatch = {
 				date: dispatch.getDate(),
 			}
+			sale.set({ status: 'Completada' })
 		}
 
-		console.log(sale)
+		const deliveryDetails = values.getDeliveryDetails()
+		if (deliveryDetails && !sale.delivery_details) {
+			sale.set({ delivery_details: deliveryDetails, status: 'En camino' })
+		}
+
 		await sale.save()
 	}
 }

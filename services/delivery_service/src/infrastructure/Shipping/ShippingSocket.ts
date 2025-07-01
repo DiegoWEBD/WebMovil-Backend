@@ -11,7 +11,7 @@ export default class ShippingSocket implements CustomSocket {
 
 	connect(): void {
 		this.socketServer.onConnection((socket: SocketConnection) => {
-			console.log('User connected to shipping socket')
+			console.log('Usuario conectado a DeliverySocket')
 
 			socket.on('register', data => {
 				socket.setData('user_type', data.user_type)
@@ -28,7 +28,7 @@ export default class ShippingSocket implements CustomSocket {
 				console.log(`Petición de despacho recibida por ${email} (${userType})`)
 				console.log(data)
 
-				socket.emitToRoom('driver', 'shipping-requested', data)
+				socket.emitToRoom('delivery-man', 'shipping-requested', data)
 			})
 
 			socket.on('accept-shipping', data => {})

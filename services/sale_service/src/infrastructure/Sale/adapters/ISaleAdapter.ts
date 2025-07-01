@@ -1,3 +1,4 @@
+import DeliveryDetails from '../../../domain/DeliveryDetails/DeliveryDetails'
 import Dispatch from '../../../domain/Dispatch/Dispatch'
 import Sale from '../../../domain/Sale/Sale'
 import SaleDetail from '../../../domain/SaleDetail/SaleDetail'
@@ -29,7 +30,11 @@ export default class ISaleAdapter extends Sale {
 			),
 			undefined, // dispatchMethod will be set by repository
 			undefined, // dispatchOrder will be set by repository
-			dispatch
+			dispatch,
+			saleI.delivery_details
+				? new DeliveryDetails(saleI.delivery_details.delivery_man_email)
+				: undefined,
+			saleI.status
 		)
 	}
 }

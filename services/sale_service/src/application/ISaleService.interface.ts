@@ -8,7 +8,8 @@ export default interface ISaleService {
 	getSale(code: string): Promise<Sale>
 	getSales(
 		storeId: string | undefined,
-		userEmail: string | undefined
+		userEmail: string | undefined,
+		status: string | undefined
 	): Promise<SaleSummary[]>
 	registerSale(
 		user_email: string,
@@ -19,4 +20,5 @@ export default interface ISaleService {
 	createDispatchOrder(saleCode: string): Promise<Sale>
 	createDispatch(saleCode: string): Promise<Sale>
 	getCustomerPurchases(userEmail: string): Promise<SaleSummary[]>
+	acceptDelivery(saleCode: string, deliveryManEmail: string): Promise<Sale>
 }

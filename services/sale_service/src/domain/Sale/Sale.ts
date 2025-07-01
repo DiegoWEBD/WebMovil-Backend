@@ -1,3 +1,4 @@
+import DeliveryDetails from '../DeliveryDetails/DeliveryDetails'
 import Dispatch from '../Dispatch/Dispatch'
 import DispatchMethod from '../DispatchMethod/DispatchMethod'
 import DispatchOrder from '../DispatchOrder/DispatchOrder'
@@ -16,6 +17,13 @@ export default class Sale {
 	private dispatchMethod: DispatchMethod | undefined
 	private dispatchOrder: DispatchOrder | undefined
 	private dispatch: Dispatch | undefined
+	private deliveryDetails: DeliveryDetails | undefined
+	private status:
+		| 'Pendiente'
+		| 'Buscando repartidor'
+		| 'En camino'
+		| 'Lista para retiro'
+		| 'Completada'
 
 	constructor(
 		code: string | undefined,
@@ -29,7 +37,14 @@ export default class Sale {
 		details: SaleDetail[],
 		dispatchMethod: DispatchMethod | undefined,
 		dispatchOrder: DispatchOrder | undefined,
-		dispatch: Dispatch | undefined
+		dispatch: Dispatch | undefined,
+		deliveryDetails: DeliveryDetails | undefined,
+		status:
+			| 'Pendiente'
+			| 'Buscando repartidor'
+			| 'En camino'
+			| 'Lista para retiro'
+			| 'Completada'
 	) {
 		this.code = code
 		this.userEmail = userEmail
@@ -43,6 +58,8 @@ export default class Sale {
 		this.dispatchOrder = dispatchOrder
 		this.dispatch = dispatch
 		this.dispatchMethod = dispatchMethod
+		this.deliveryDetails = deliveryDetails
+		this.status = status
 	}
 
 	getCode(): string | undefined {
@@ -53,8 +70,36 @@ export default class Sale {
 		this.code = code
 	}
 
+	getStatus():
+		| 'Pendiente'
+		| 'Buscando repartidor'
+		| 'En camino'
+		| 'Lista para retiro'
+		| 'Completada' {
+		return this.status
+	}
+
+	setStatus(
+		status:
+			| 'Pendiente'
+			| 'Buscando repartidor'
+			| 'En camino'
+			| 'Lista para retiro'
+			| 'Completada'
+	): void {
+		this.status = status
+	}
+
 	getUserEmail(): string {
 		return this.userEmail
+	}
+
+	getDeliveryDetails(): DeliveryDetails | undefined {
+		return this.deliveryDetails
+	}
+
+	setDeliveryDetails(deliveryDetails: DeliveryDetails): void {
+		this.deliveryDetails = deliveryDetails
 	}
 
 	getUserName(): string {

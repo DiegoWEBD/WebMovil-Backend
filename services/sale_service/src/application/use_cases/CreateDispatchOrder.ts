@@ -14,7 +14,6 @@ export default class CreateDispatchOrder {
 
 	async execute(saleCode: string): Promise<Sale> {
 		const sale = await this.saleRepository.findByCode(saleCode)
-		console.log(sale)
 
 		if (!sale) {
 			throw new Error(`Venta ${saleCode} no registrada`)

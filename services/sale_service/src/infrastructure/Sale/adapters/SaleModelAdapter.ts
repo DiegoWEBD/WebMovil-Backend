@@ -29,6 +29,14 @@ export default class SaleModelAdapter extends SaleModel {
 			dispatch_method_id: sale.getDispatchMethod()?.id,
 			dispatch_order_id: sale.getDispatchOrder()?.getId(),
 			dispatch,
+			delivery_details: sale.getDeliveryDetails()
+				? {
+						delivery_man_email: sale
+							.getDeliveryDetails()!
+							.getDeliveryManEmail(),
+				  }
+				: undefined,
+			status: sale.getStatus(),
 		})
 	}
 }

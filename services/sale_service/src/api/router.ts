@@ -13,5 +13,6 @@ router.get('/:code', saleController.getSale)
 router.post('/', saleController.registerSale)
 router.post('/:code/dispatch-order', saleController.createDispatchOrder)
 router.post('/:code/dispatch', saleController.createDispatch)
+router.post('/:code/accept-delivery', saleController.acceptDelivery)
 
 export default router

@@ -13,7 +13,7 @@ export default class ExpressApplicationServer implements ApplicationServer {
 
 	listen(port: number): void {
 		this.server.listen(port, () =>
-			console.log(`Server running on port ${port}`)
+			console.log(`DeliveryService ejecutándose en el puerto ${port}`)
 		)
 	}
 
