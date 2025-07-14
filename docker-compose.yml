@@ -81,6 +81,16 @@ services:
     depends_on:
       - mongodb
 
+  analytics-service:
+    build: ./services/analytics_service
+    ports:
+      - '3009:3009'
+    env_file:
+      - ./services/analytics_service/.env
+    depends_on:
+      - sale-service
+      - store-service
+
   api-gateway:
     build: ./api_gateway
     ports:
@@ -97,3 +107,4 @@ services:
       - owner-service
       - sale-service
       - deliveryman-service
+      - analytics-service

@@ -67,6 +67,12 @@ app.use(
 	createSecuredHttpProxy('http://deliveryman-service:3008')
 )
 
+app.use(
+	'/analytics',
+	userAuthMiddleware,
+	createSecuredHttpProxy('http://analytics-service:3009')
+)
+
 app.listen(PORT, () =>
 	console.log(`API Gateway ejecutándose en el puerto ${PORT}`)
 )

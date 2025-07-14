@@ -7,6 +7,10 @@ export default class Validate {
 		const email = await getGoogleUserEmail(googleAccessToken)
 		let existingUserResponse
 
+		if (email === process.env.ADMIN_EMAIL) {
+			return { user_email: email, user_type: 'admin' }
+		}
+
 		try {
 			existingUserResponse = await serviceClient.get(
 				`/user-service:3001/${encodeURIComponent(email)}`

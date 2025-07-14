@@ -56,6 +56,10 @@ const clients: Record<string, { secret: string; scopes: string[] }> = {
 		secret: 'secret7',
 		scopes: ['shipping.read', 'stock.read'],
 	},
+	'1ddhs753k': {
+		secret: 'secret10',
+		scopes: ['shipping.read', 'stock.read'],
+	},
 }
 
 app.post('/oauth2/token', (req, res) => {
