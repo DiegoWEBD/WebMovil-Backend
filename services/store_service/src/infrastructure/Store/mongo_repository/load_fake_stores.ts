@@ -58,7 +58,7 @@ export const loadFakeStores = async () => {
 			phone: `+56 9 ${Math.floor(10000000 + Math.random() * 89999999)}`,
 			email: `${name.toLowerCase().replace(/\s+/g, '')}@correo.cl`,
 			schedules: generateRandomSchedule(),
-			owners_emails: ['diego.maldonado.1alsf@gmail.com'],
+			owners_emails: ['sebastian.robles02@alumnos.ucn.cl'],
 			image_name: undefined,
 		}))
 
